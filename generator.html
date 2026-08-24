@@ -131,9 +131,7 @@ button {
 
 <textarea id="regions" placeholder="서울 종로구
 서울 중구
-서울 용산구
-서울 성동구
-서울 광진구"></textarea>
+서울 용산구"></textarea>
 
 
 <label>② 제목 키워드</label>
@@ -155,16 +153,15 @@ value="https://replyalba.com/intros/law_seoyul/">
 
 
 <button onclick="generatePages()">
-30개 글 생성하기
+글 생성하기
 </button>
 
 
 <div class="result" id="result"></div>
 
 <div class="notice">
-지역명과 제목만 바꾸는 방식이 아니라
-도입부와 일부 정보 문장도 여러 버전으로 조합됩니다.
-법무법인 서앤율 관련 안내와 상담 링크는 동일하게 유지됩니다.
+제목은 지역명 + 키워드 3개 + 마무리 문구 형태로 자동 생성됩니다.
+도입부와 일부 본문 표현도 여러 버전으로 조합됩니다.
 </div>
 
 </div>
@@ -188,6 +185,26 @@ const bannedWords = [
   "기각 시 100% 환불",
   "할인쿠폰",
   "수익금 지급"
+];
+
+
+/* 제목 마지막 문구 */
+const titleEndings = [
+  "해결방법",
+  "확인사항",
+  "상담방법",
+  "문의방법",
+  "신청방법",
+  "준비사항",
+  "진행방법",
+  "알아보는 이유",
+  "신청 전 확인사항",
+  "상담 전 확인사항",
+  "신청 전 체크사항",
+  "알아둘 점",
+  "자격조건 확인",
+  "진행 전 확인사항",
+  "채무조정 방법"
 ];
 
 
@@ -412,6 +429,7 @@ function shuffle(array, seed) {
 }
 
 
+/* 제목 생성 */
 function createTitle(region, keywords, index) {
 
   const safeKeywords = keywords
@@ -420,17 +438,20 @@ function createTitle(region, keywords, index) {
 
   const mixed = shuffle(safeKeywords, index + 3);
 
-  let count = 3;
+  const selectedKeywords =
+    mixed.slice(0, Math.min(3, mixed.length));
 
-  if(index % 3 === 1) count = 4;
-  if(index % 3 === 2) count = 3;
+  const ending =
+    titleEndings[index % titleEndings.length];
 
   return region + " " +
-    mixed.slice(0, Math.min(count, mixed.length)).join(" ");
+    selectedKeywords.join(" ") +
+    " " +
+    ending;
 }
 
 
-/* 파일명용 */
+/* 파일명 */
 function makeFileName(index) {
 
   return "personal-rehabilitation-" +
@@ -459,21 +480,11 @@ function createHTML(region, keywords, index, consultLink) {
 const title = createTitle(region, keywords, index);
 
 const intro = pick(intros, index);
+const explanation = pick(explanations, index, 1);
+const jobs = pick(jobTexts, index, 2);
+const preparation = pick(prepareTexts, index, 1);
+const ending = pick(endings, index, 2);
 
-const explanation =
-  pick(explanations, index, 1);
-
-const jobs =
-  pick(jobTexts, index, 2);
-
-const preparation =
-  pick(prepareTexts, index, 1);
-
-const ending =
-  pick(endings, index, 2);
-
-
-/* 지역별 상담버튼 문구 */
 const buttonText =
   region +
   " 개인회생변호사 상담 신청 [클릭]";
@@ -496,7 +507,6 @@ content="${region} 개인회생 신청자격과 조건, 소득과 채무 기준 
 
 <meta name="robots"
 content="index, follow">
-
 
 <style>
 
@@ -661,10 +671,6 @@ p {
     padding: 20px 17px 42px;
   }
 
-  .ad {
-    font-size: 13px;
-  }
-
   h1 {
     font-size: 23px;
     line-height: 1.55;
@@ -717,7 +723,6 @@ p {
 <body>
 
 <div class="container">
-
 
 <div class="ad">
 본 포스팅은 유료광고를 포함하고 있습니다.
@@ -781,7 +786,6 @@ ${paragraphs(explanation)}
 </p>
 
 
-
 <h2>개인회생 자격조건을 확인해 보세요</h2>
 
 
@@ -800,84 +804,52 @@ class="content-image">
 
 <div class="point-box">
 
-
 <div class="point-item">
-
-<span class="point-title">
-✓ 지속적인 소득
-</span>
-
+<span class="point-title">✓ 지속적인 소득</span>
 <div class="point-text">
 급여나 사업소득 등<br>
 계속적 또는 반복적으로<br>
 얻을 가능성이 있는 수입이 필요합니다.
 </div>
-
 </div>
 
-
 <div class="point-item">
-
-<span class="point-title">
-✓ 채무 상환이 어려운 상황
-</span>
-
+<span class="point-title">✓ 채무 상환이 어려운 상황</span>
 <div class="point-text">
 현재 소득과 재산 등을 고려했을 때<br>
 채무를 정상적으로 갚기 어려운 상황인지<br>
 확인하게 됩니다.
 </div>
-
 </div>
 
-
 <div class="point-item">
-
-<span class="point-title">
-✓ 채무 한도
-</span>
-
+<span class="point-title">✓ 채무 한도</span>
 <div class="point-text">
 무담보채무는 10억 원 이하,<br>
 담보부채무는 15억 원 이하인 경우<br>
 개인회생 신청을 검토할 수 있습니다.
 </div>
-
 </div>
 
-
 <div class="point-item">
-
-<span class="point-title">
-✓ 보유 재산
-</span>
-
+<span class="point-title">✓ 보유 재산</span>
 <div class="point-text">
 부동산과 자동차, 예금, 보험 등<br>
 현재 가지고 있는 재산도<br>
 함께 확인해야 합니다.
 </div>
-
 </div>
 
-
 <div class="point-item">
-
-<span class="point-title">
-✓ 과거 면책 여부
-</span>
-
+<span class="point-title">✓ 과거 면책 여부</span>
 <div class="point-text">
 이전에 개인회생이나 파산 등을 통해<br>
 면책을 받은 경험이 있다면<br>
 관련 시점을 확인할 필요가 있습니다.
 </div>
-
 </div>
 
-
 </div>
-
 
 
 <h2>직업이 달라도 신청을 검토할 수 있습니다</h2>
@@ -890,7 +862,6 @@ class="content-image">
 
 
 ${paragraphs(jobs)}
-
 
 
 <h2>개인마다 준비해야 하는 내용이 다릅니다</h2>
@@ -912,7 +883,6 @@ ${paragraphs(preparation)}
 추가적인 소명이나 자료가<br>
 요구될 수도 있습니다.
 </p>
-
 
 
 <h2>법무법인 서앤율의 강점</h2>
@@ -948,40 +918,16 @@ class="content-image">
 
 <div class="check-box">
 
-<div class="check">
-변호사가 직접 사건 관리
-</div>
-
-<div class="check">
-신청서 접수 및 보정 과정 확인
-</div>
-
-<div class="check">
-채권자집회 등 진행 과정 확인
-</div>
-
-<div class="check">
-변제계획 인가 및 면책 과정 확인
-</div>
-
-<div class="check">
-전국 상담 및 진행 가능
-</div>
-
-<div class="check">
-수임료 분납 가능
-</div>
-
-<div class="check">
-사건 진행상황 확인
-</div>
-
-<div class="check">
-1:1 비밀상담
-</div>
+<div class="check">변호사가 직접 사건 관리</div>
+<div class="check">신청서 접수 및 보정 과정 확인</div>
+<div class="check">채권자집회 등 진행 과정 확인</div>
+<div class="check">변제계획 인가 및 면책 과정 확인</div>
+<div class="check">전국 상담 및 진행 가능</div>
+<div class="check">수임료 분납 가능</div>
+<div class="check">사건 진행상황 확인</div>
+<div class="check">1:1 비밀상담</div>
 
 </div>
-
 
 
 <h2>현재 상황부터 확인해 보세요</h2>
@@ -1020,20 +966,14 @@ ${buttonText}
 
 
 <div class="lawyer">
-
 광고책임 변호사 구제준
-
 </div>
-
 
 </div>
 
 </body>
-
 </html>`;
-
 }
-
 
 
 async function generatePages() {
@@ -1065,14 +1005,12 @@ async function generatePages() {
 
 
   if(regions.length === 0) {
-
     alert("지역을 입력해 주세요.");
     return;
   }
 
 
   if(keywords.length === 0) {
-
     alert("제목 키워드를 입력해 주세요.");
     return;
   }
@@ -1085,8 +1023,7 @@ async function generatePages() {
 
   regions.forEach(function(region, index) {
 
-    const filename =
-      makeFileName(index);
+    const filename = makeFileName(index);
 
     const title =
       createTitle(region, keywords, index);
@@ -1099,9 +1036,7 @@ async function generatePages() {
         consultLink
       );
 
-
     zip.file(filename, html);
-
 
     preview.push(
       "<strong>" +
@@ -1132,7 +1067,7 @@ async function generatePages() {
   download.href = url;
 
   download.download =
-    "seoyul-personal-rehabilitation-30.zip";
+    "seoyul-personal-rehabilitation-pages.zip";
 
 
   document.body.appendChild(download);
@@ -1148,8 +1083,7 @@ async function generatePages() {
     document.getElementById("result");
 
 
-  result.style.display =
-    "block";
+  result.style.display = "block";
 
 
   result.innerHTML =
