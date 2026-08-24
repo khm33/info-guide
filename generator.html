@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>개인회생 지역별 30개 글 자동생성기</title>
+<title>개인회생 지역별 50개 자동생성기</title>
 
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
@@ -64,20 +64,41 @@ textarea {
 }
 
 #keywords {
-  min-height: 130px;
+  min-height: 150px;
 }
 
 button {
   width: 100%;
-  margin-top: 30px;
-  padding: 18px;
+  margin-top: 18px;
+  padding: 17px;
   border: 0;
   border-radius: 8px;
   background: #44362b;
   color: #fff;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   cursor: pointer;
+}
+
+button:hover {
+  opacity: .9;
+}
+
+.secondary {
+  background: #777;
+}
+
+.danger {
+  background: #9b4949;
+}
+
+.history {
+  margin-top: 28px;
+  padding: 17px;
+  border-radius: 8px;
+  background: #f8f5f0;
+  line-height: 1.8;
+  font-size: 14px;
 }
 
 .result {
@@ -118,12 +139,15 @@ button {
 
 <div class="wrap">
 
-<h1>개인회생 지역별 30개 글 자동생성기</h1>
+<h1>개인회생 지역별 50개 글 자동생성기</h1>
 
 <div class="guide">
 지역을 한 줄에 하나씩 입력하고<br>
-제목에 사용할 개인회생 키워드를 넣어주세요.<br>
-최대 30개의 HTML 페이지를 한 번에 생성합니다.
+제목에 사용할 키워드를 입력하세요.<br>
+최대 50개의 HTML 페이지를 한 번에 생성합니다.<br><br>
+
+이전에 사용한 제목은 자동으로 기억해서<br>
+다음 생성 시 동일한 제목을 피하도록 구성되어 있습니다.
 </div>
 
 
@@ -131,7 +155,9 @@ button {
 
 <textarea id="regions" placeholder="서울 종로구
 서울 중구
-서울 용산구"></textarea>
+서울 용산구
+서울 성동구
+서울 광진구"></textarea>
 
 
 <label>② 제목 키워드</label>
@@ -142,7 +168,9 @@ button {
 개인회생신청자격
 개인회생자격
 개인회생절차
-채무조정"></textarea>
+채무조정
+개인회생법률상담
+개인회생상담문의"></textarea>
 
 
 <label>③ 상담 링크</label>
@@ -153,15 +181,37 @@ value="https://replyalba.com/intros/law_seoyul/">
 
 
 <button onclick="generatePages()">
-글 생성하기
+50개 글 생성하기
+</button>
+
+
+<div class="history">
+현재 저장된 기존 제목 :
+<strong id="historyCount">0</strong>개
+</div>
+
+
+<button class="secondary" onclick="downloadHistory()">
+사용한 제목 기록 백업하기
+</button>
+
+
+<button class="danger" onclick="resetHistory()">
+사용한 제목 기록 초기화
 </button>
 
 
 <div class="result" id="result"></div>
 
+
 <div class="notice">
-제목은 지역명 + 키워드 3개 + 마무리 문구 형태로 자동 생성됩니다.
-도입부와 일부 본문 표현도 여러 버전으로 조합됩니다.
+제목 구조는
+<strong>지역 + 키워드 3개 + 마무리 문구</strong>입니다.<br>
+
+사용했던 제목은 현재 브라우저에 저장됩니다.
+브라우저 데이터를 삭제하거나 다른 컴퓨터를 사용하면
+기록이 사라질 수 있으므로 필요하면
+'사용한 제목 기록 백업하기'를 이용하세요.
 </div>
 
 </div>
@@ -169,7 +219,10 @@ value="https://replyalba.com/intros/law_seoyul/">
 
 <script>
 
-/* 광고 시 제외할 표현 */
+/* =========================
+   광고 금지 표현
+========================= */
+
 const bannedWords = [
   "무료",
   "무료상담",
@@ -188,7 +241,10 @@ const bannedWords = [
 ];
 
 
-/* 제목 마지막 문구 */
+/* =========================
+   제목 마무리 문구
+========================= */
+
 const titleEndings = [
   "해결방법",
   "확인사항",
@@ -204,11 +260,24 @@ const titleEndings = [
   "알아둘 점",
   "자격조건 확인",
   "진행 전 확인사항",
-  "채무조정 방법"
+  "채무조정 방법",
+  "신청할 때 확인할 점",
+  "상담 전 알아둘 내용",
+  "신청 준비방법",
+  "절차 확인방법",
+  "채무 상담방법",
+  "신청자격 알아보기",
+  "진행과정 알아보기",
+  "상담 전 체크사항",
+  "채무조정 확인사항",
+  "절차와 준비사항"
 ];
 
 
-/* 공감형 도입부 */
+/* =========================
+   공감형 도입부
+========================= */
+
 const intros = [
 
 `매달 대출과 카드대금을
@@ -251,7 +320,8 @@ const intros = [
 개인회생 신청요건에 해당하는지
 살펴볼 필요가 있습니다.`,
 
-`처음에는 충분히 갚을 수 있을 거라 생각했던 채무도
+`처음에는 충분히 갚을 수 있을 거라
+생각했던 채무도
 예상하지 못한 상황이 반복되면서
 감당하기 어려워질 수 있습니다.
 
@@ -268,12 +338,51 @@ const intros = [
 연체가 길어지기 전에
 현재의 채무 규모와 소득을 정리하고
 개인회생을 검토할 수 있는 상황인지
-확인해 보는 것이 중요합니다.`
+확인해 보는 것이 중요합니다.`,
+
+`매월 정해진 소득은 들어오지만
+대출과 카드대금 상환 후에는
+생활비조차 부족한 상황이
+이어질 수 있습니다.
+
+이런 상황이 반복된다면
+현재 상환방식만 유지하기보다는
+채무를 조정할 수 있는 제도가 있는지
+확인해 볼 필요가 있습니다.`,
+
+`여러 곳의 채무를 동시에 갚다 보면
+매월 상환금이 커지면서
+경제적인 부담이 더 커질 수 있습니다.
+
+현재 소득만으로 전체 채무를
+정상적으로 감당하기 어렵다면
+개인회생 신청 가능 여부를
+살펴보는 것도 방법입니다.`,
+
+`대출을 갚기 위해 또 다른 대출을 이용하거나
+카드대금을 돌려막는 상황이 반복되면
+채무 규모가 더 커질 수 있습니다.
+
+상환이 어렵다고 느껴지는 시점에는
+현재 소득과 재산,
+전체 채무 상태를 먼저 확인하는 것이 중요합니다.`,
+
+`채무가 늘어난 상황에서는
+어디서부터 해결해야 할지
+막막하게 느껴질 수 있습니다.
+
+하지만 개인마다 소득과 재산,
+채무 규모가 다른 만큼
+현재 상황에 맞는 절차가 있는지
+차근차근 확인해 볼 필요가 있습니다.`
 
 ];
 
 
-/* 개인회생 설명 */
+/* =========================
+   개인회생 설명
+========================= */
+
 const explanations = [
 
 `개인회생은 일정한 수입이 있지만
@@ -293,12 +402,25 @@ const explanations = [
 현재 가지고 있는 채무 규모 때문에
 정상적인 상환이 어려운 경우에는
 개인회생 절차를 통해
-채무조정 가능성을 살펴볼 수 있습니다.`
+채무조정 가능성을 살펴볼 수 있습니다.`,
+
+`개인회생은 현재 소득을 바탕으로
+일정한 변제계획을 마련하고
+법원의 심사를 통해
+채무를 조정하는 절차입니다.`,
+
+`계속적인 수입은 발생하고 있지만
+현재 채무를 정상적인 방법으로
+상환하기 어려운 경우
+개인회생 제도를 검토할 수 있습니다.`
 
 ];
 
 
-/* 직업 관련 문장 */
+/* =========================
+   직업 설명
+========================= */
+
 const jobTexts = [
 
 `개인회생에서는 직업의 명칭 자체보다
@@ -327,12 +449,30 @@ const jobTexts = [
 
 수입이 일정하지 않은 경우에도
 소득을 확인할 수 있는 자료를 준비해
-현재 상황을 검토할 수 있습니다.`
+현재 상황을 검토할 수 있습니다.`,
+
+`회사에 근무하고 있지 않더라도
+반복적인 소득이 발생하고 있다면
+개인회생 신청 가능 여부를
+살펴볼 수 있습니다.
+
+소득 형태에 따라
+준비해야 하는 자료에는
+차이가 있을 수 있습니다.`,
+
+`직장인뿐 아니라
+자영업자나 프리랜서처럼
+수입이 일정하지 않은 경우에도
+실제 소득 내역을 확인해
+개인회생 요건을 검토할 수 있습니다.`
 
 ];
 
 
-/* 준비사항 */
+/* =========================
+   준비사항
+========================= */
+
 const prepareTexts = [
 
 `같은 금액의 채무가 있다고 하더라도
@@ -360,12 +500,31 @@ const prepareTexts = [
 
 소득과 재산,
 부양가족과 채무 발생 경위 등을
-함께 살펴보는 과정이 필요합니다.`
+함께 살펴보는 과정이 필요합니다.`,
+
+`개인회생 신청 전에는
+현재 가지고 있는 채무와 재산,
+월평균 소득 등을 정리해
+확인하는 것이 좋습니다.
+
+구체적인 상황에 따라
+추가적인 자료가 요구될 수 있습니다.`,
+
+`채무가 발생하게 된 과정과
+현재의 경제 상황은
+사람마다 차이가 있습니다.
+
+따라서 신청 전에
+본인에게 필요한 준비사항을
+확인해 보는 것이 중요합니다.`
 
 ];
 
 
-/* 마무리 */
+/* =========================
+   마무리
+========================= */
+
 const endings = [
 
 `채무가 많다고 해서
@@ -392,71 +551,242 @@ const endings = [
 
 개인회생을 알아보고 있다면
 신청 가능 여부와 필요한 준비사항을
-상담을 통해 확인해 볼 수 있습니다.`
+상담을 통해 확인해 볼 수 있습니다.`,
+
+`채무 상황은 사람마다 다르기 때문에
+다른 사람의 사례만으로
+신청 여부를 판단하기는 어렵습니다.
+
+현재 본인의 조건에서
+어떤 방법을 검토할 수 있는지
+확인해 보는 것이 좋습니다.`,
+
+`채무 부담이 계속되고 있다면
+현재 소득과 재산,
+전체 채무부터 정리해 보는 것이 좋습니다.
+
+개인회생 신청이 가능한 상황인지
+필요한 절차와 준비사항을
+확인해 보시기 바랍니다.`
 
 ];
 
+
+/* =========================
+   제목 기록
+========================= */
+
+const HISTORY_KEY = "seoyul_used_titles_v3";
+
+
+function loadHistory() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem(HISTORY_KEY) || "[]"
+    );
+
+  } catch(e) {
+
+    return [];
+  }
+}
+
+
+function saveHistory(history) {
+
+  localStorage.setItem(
+    HISTORY_KEY,
+    JSON.stringify(history)
+  );
+
+  updateHistoryCount();
+}
+
+
+function updateHistoryCount() {
+
+  const history = loadHistory();
+
+  document.getElementById("historyCount")
+    .textContent = history.length;
+}
+
+
+function resetHistory() {
+
+  const ok = confirm(
+    "지금까지 저장된 제목 기록을 모두 삭제할까요?\n삭제하면 이전 제목이 다시 생성될 수 있습니다."
+  );
+
+  if(!ok) return;
+
+  localStorage.removeItem(HISTORY_KEY);
+
+  updateHistoryCount();
+
+  alert("제목 기록이 초기화되었습니다.");
+}
+
+
+function downloadHistory() {
+
+  const history = loadHistory();
+
+  const text = history.join("\n");
+
+  const blob = new Blob(
+    [text],
+    {type:"text/plain;charset=utf-8"}
+  );
+
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+
+  a.href = url;
+
+  a.download = "used-title-history.txt";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+
+/* =========================
+   공통 함수
+========================= */
 
 function cleanKeyword(word) {
 
   let cleaned = word.trim();
 
   bannedWords.forEach(function(banned) {
-    cleaned = cleaned.split(banned).join("");
+
+    cleaned =
+      cleaned.split(banned).join("");
   });
 
   return cleaned.trim();
 }
 
 
-function pick(array, index, offset = 0) {
-  return array[(index + offset) % array.length];
+function randomItem(array) {
+
+  return array[
+    Math.floor(Math.random() * array.length)
+  ];
 }
 
 
-function shuffle(array, seed) {
+function randomThree(array) {
 
   const copy = [...array];
 
   for(let i = copy.length - 1; i > 0; i--) {
 
-    const j = (seed * 11 + i * 17) % (i + 1);
+    const j =
+      Math.floor(Math.random() * (i + 1));
 
-    [copy[i], copy[j]] = [copy[j], copy[i]];
+    [copy[i], copy[j]] =
+      [copy[j], copy[i]];
   }
 
-  return copy;
+  return copy.slice(0, 3);
 }
 
 
-/* 제목 생성 */
-function createTitle(region, keywords, index) {
+/* =========================
+   중복 없는 제목 생성
+========================= */
 
-  const safeKeywords = keywords
-    .map(cleanKeyword)
-    .filter(Boolean);
+function createUniqueTitle(
+  region,
+  keywords,
+  usedSet
+) {
 
-  const mixed = shuffle(safeKeywords, index + 3);
+  const safeKeywords =
+    [...new Set(
+      keywords
+        .map(cleanKeyword)
+        .filter(Boolean)
+    )];
 
-  const selectedKeywords =
-    mixed.slice(0, Math.min(3, mixed.length));
 
-  const ending =
-    titleEndings[index % titleEndings.length];
+  if(safeKeywords.length < 3) {
 
-  return region + " " +
-    selectedKeywords.join(" ") +
-    " " +
-    ending;
+    throw new Error(
+      "제목 키워드를 최소 3개 이상 입력해 주세요."
+    );
+  }
+
+
+  for(let attempt = 0;
+      attempt < 1000;
+      attempt++) {
+
+    const selected =
+      randomThree(safeKeywords);
+
+    const ending =
+      randomItem(titleEndings);
+
+    const title =
+      region + " " +
+      selected.join(" ") +
+      " " +
+      ending;
+
+
+    if(!usedSet.has(title)) {
+
+      return title;
+    }
+  }
+
+
+  throw new Error(
+    region +
+    " 지역에서 새로운 제목 조합을 만들지 못했습니다. 키워드나 마무리 문구를 추가해 주세요."
+  );
 }
 
 
-/* 파일명 */
-function makeFileName(index) {
+/* =========================
+   파일명
+========================= */
 
-  return "personal-rehabilitation-" +
-    String(index + 1).padStart(2, "0") +
-    ".html";
+function batchCode() {
+
+  const d = new Date();
+
+  const pad = n =>
+    String(n).padStart(2,"0");
+
+  return (
+    d.getFullYear() +
+    pad(d.getMonth()+1) +
+    pad(d.getDate()) +
+    "-" +
+    pad(d.getHours()) +
+    pad(d.getMinutes()) +
+    pad(d.getSeconds())
+  );
+}
+
+
+function makeFileName(batch, index) {
+
+  return (
+    "pr-" +
+    batch +
+    "-" +
+    String(index + 1).padStart(2,"0") +
+    ".html"
+  );
 }
 
 
@@ -467,7 +797,7 @@ function paragraphs(text) {
     .map(function(block) {
 
       return "<p>" +
-        block.replace(/\n/g, "<br>") +
+        block.replace(/\n/g,"<br>") +
         "</p>";
 
     })
@@ -475,15 +805,32 @@ function paragraphs(text) {
 }
 
 
-function createHTML(region, keywords, index, consultLink) {
+/* =========================
+   실제 글 HTML
+========================= */
 
-const title = createTitle(region, keywords, index);
+function createHTML(
+  region,
+  title,
+  index,
+  consultLink
+) {
 
-const intro = pick(intros, index);
-const explanation = pick(explanations, index, 1);
-const jobs = pick(jobTexts, index, 2);
-const preparation = pick(prepareTexts, index, 1);
-const ending = pick(endings, index, 2);
+const intro =
+  randomItem(intros);
+
+const explanation =
+  randomItem(explanations);
+
+const jobs =
+  randomItem(jobTexts);
+
+const preparation =
+  randomItem(prepareTexts);
+
+const ending =
+  randomItem(endings);
+
 
 const buttonText =
   region +
@@ -507,6 +854,7 @@ content="${region} 개인회생 신청자격과 조건, 소득과 채무 기준 
 
 <meta name="robots"
 content="index, follow">
+
 
 <style>
 
@@ -665,6 +1013,7 @@ p {
   color: #666;
 }
 
+
 @media(max-width:600px) {
 
   .container {
@@ -723,6 +1072,7 @@ p {
 <body>
 
 <div class="container">
+
 
 <div class="ad">
 본 포스팅은 유료광고를 포함하고 있습니다.
@@ -804,50 +1154,81 @@ class="content-image">
 
 <div class="point-box">
 
+
 <div class="point-item">
-<span class="point-title">✓ 지속적인 소득</span>
+
+<span class="point-title">
+✓ 지속적인 소득
+</span>
+
 <div class="point-text">
 급여나 사업소득 등<br>
 계속적 또는 반복적으로<br>
 얻을 가능성이 있는 수입이 필요합니다.
 </div>
+
 </div>
 
+
 <div class="point-item">
-<span class="point-title">✓ 채무 상환이 어려운 상황</span>
+
+<span class="point-title">
+✓ 채무 상환이 어려운 상황
+</span>
+
 <div class="point-text">
 현재 소득과 재산 등을 고려했을 때<br>
 채무를 정상적으로 갚기 어려운 상황인지<br>
 확인하게 됩니다.
 </div>
+
 </div>
 
+
 <div class="point-item">
-<span class="point-title">✓ 채무 한도</span>
+
+<span class="point-title">
+✓ 채무 한도
+</span>
+
 <div class="point-text">
 무담보채무는 10억 원 이하,<br>
 담보부채무는 15억 원 이하인 경우<br>
 개인회생 신청을 검토할 수 있습니다.
 </div>
+
 </div>
 
+
 <div class="point-item">
-<span class="point-title">✓ 보유 재산</span>
+
+<span class="point-title">
+✓ 보유 재산
+</span>
+
 <div class="point-text">
 부동산과 자동차, 예금, 보험 등<br>
 현재 가지고 있는 재산도<br>
 함께 확인해야 합니다.
 </div>
+
 </div>
 
+
 <div class="point-item">
-<span class="point-title">✓ 과거 면책 여부</span>
+
+<span class="point-title">
+✓ 과거 면책 여부
+</span>
+
 <div class="point-text">
 이전에 개인회생이나 파산 등을 통해<br>
 면책을 받은 경험이 있다면<br>
 관련 시점을 확인할 필요가 있습니다.
 </div>
+
 </div>
+
 
 </div>
 
@@ -918,14 +1299,37 @@ class="content-image">
 
 <div class="check-box">
 
-<div class="check">변호사가 직접 사건 관리</div>
-<div class="check">신청서 접수 및 보정 과정 확인</div>
-<div class="check">채권자집회 등 진행 과정 확인</div>
-<div class="check">변제계획 인가 및 면책 과정 확인</div>
-<div class="check">전국 상담 및 진행 가능</div>
-<div class="check">수임료 분납 가능</div>
-<div class="check">사건 진행상황 확인</div>
-<div class="check">1:1 비밀상담</div>
+<div class="check">
+변호사가 직접 사건 관리
+</div>
+
+<div class="check">
+신청서 접수 및 보정 과정 확인
+</div>
+
+<div class="check">
+채권자집회 등 진행 과정 확인
+</div>
+
+<div class="check">
+변제계획 인가 및 면책 과정 확인
+</div>
+
+<div class="check">
+전국 상담 및 진행 가능
+</div>
+
+<div class="check">
+수임료 분납 가능
+</div>
+
+<div class="check">
+사건 진행상황 확인
+</div>
+
+<div class="check">
+1:1 비밀상담
+</div>
 
 </div>
 
@@ -966,15 +1370,23 @@ ${buttonText}
 
 
 <div class="lawyer">
+
 광고책임 변호사 구제준
+
 </div>
+
 
 </div>
 
 </body>
+
 </html>`;
 }
 
+
+/* =========================
+   50개 생성
+========================= */
 
 async function generatePages() {
 
@@ -985,7 +1397,7 @@ async function generatePages() {
     .split("\n")
     .map(v => v.trim())
     .filter(Boolean)
-    .slice(0, 30);
+    .slice(0,50);
 
 
   const keywords =
@@ -1005,54 +1417,116 @@ async function generatePages() {
 
 
   if(regions.length === 0) {
+
     alert("지역을 입력해 주세요.");
+
     return;
   }
 
 
-  if(keywords.length === 0) {
-    alert("제목 키워드를 입력해 주세요.");
+  if(keywords.length < 3) {
+
+    alert("제목 키워드를 최소 3개 이상 입력해 주세요.");
+
     return;
   }
 
 
-  const zip = new JSZip();
+  const oldHistory =
+    loadHistory();
 
-  let preview = [];
+
+  const usedSet =
+    new Set(oldHistory);
 
 
-  regions.forEach(function(region, index) {
+  const newTitles = [];
 
-    const filename = makeFileName(index);
+  const zip =
+    new JSZip();
 
-    const title =
-      createTitle(region, keywords, index);
 
-    const html =
-      createHTML(
-        region,
-        keywords,
-        index,
-        consultLink
+  const batch =
+    batchCode();
+
+
+  const preview = [];
+
+
+  try {
+
+    regions.forEach(function(region,index) {
+
+      const title =
+        createUniqueTitle(
+          region,
+          keywords,
+          usedSet
+        );
+
+
+      usedSet.add(title);
+
+      newTitles.push(title);
+
+
+      const filename =
+        makeFileName(
+          batch,
+          index
+        );
+
+
+      const html =
+        createHTML(
+          region,
+          title,
+          index,
+          consultLink
+        );
+
+
+      zip.file(
+        filename,
+        html
       );
 
-    zip.file(filename, html);
 
-    preview.push(
-      "<strong>" +
-      (index + 1) +
-      ". " +
-      title +
-      "</strong><br>" +
-      filename
-    );
+      preview.push(
 
-  });
+        "<strong>" +
+        (index + 1) +
+        ". " +
+        title +
+        "</strong><br>" +
+        filename
 
+      );
+
+    });
+
+  } catch(error) {
+
+    alert(error.message);
+
+    return;
+  }
+
+
+  /* 새 제목 기록 저장 */
+
+  const allHistory =
+    oldHistory.concat(newTitles);
+
+
+  saveHistory(allHistory);
+
+
+  /* ZIP 생성 */
 
   const blob =
     await zip.generateAsync({
-      type: "blob"
+      type:"blob"
     });
 
 
@@ -1064,10 +1538,16 @@ async function generatePages() {
     document.createElement("a");
 
 
-  download.href = url;
+  download.href =
+    url;
+
 
   download.download =
-    "seoyul-personal-rehabilitation-pages.zip";
+    "seoyul-" +
+    batch +
+    "-" +
+    regions.length +
+    "pages.zip";
 
 
   document.body.appendChild(download);
@@ -1079,20 +1559,31 @@ async function generatePages() {
   URL.revokeObjectURL(url);
 
 
+  /* 생성 결과 */
+
   const result =
     document.getElementById("result");
 
 
-  result.style.display = "block";
+  result.style.display =
+    "block";
 
 
   result.innerHTML =
+
     "<strong>" +
     regions.length +
     "개 페이지 생성 완료</strong><br><br>" +
+
+    "이번에 사용한 제목은 기존 제목 기록에 자동 저장되었습니다.<br><br>" +
+
     preview.join("<br><br>");
 
 }
+
+
+/* 시작할 때 기록 개수 표시 */
+updateHistoryCount();
 
 </script>
 
