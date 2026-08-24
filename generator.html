@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>개인회생 글 50개 자동생성기</title>
+
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+<style>
+body{
+  margin:0;
+  background:#f4f5f7;
+  font-family:Arial,"Noto Sans KR",sans-serif;
+  color:#222;
+}
+
+.wrap{
+  max-width:900px;
+  margin:40px auto;
+  background:#fff;
+  padding:35px;
+  border-radius:12px;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+
+h1{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.guide{
+  color:#666;
+  line-height:1.7;
+  margin-bottom:30px;
+}
+
+label{
+  display:block;
+  font-size:17px;
+  font-weight:bold;
+  margin:25px 0 10px;
+}
+
+textarea,input{
+  width:100%;
+  padding:14px;
+  border:1px solid #ccc;
+  border-radius:7px;
+  font-size:15px;
+  box-sizing:border-box;
+}
+
+textarea{
+  min-height:180px;
+  resize:vertical;
+  line-height:1.6;
+}
+
+.keywords{
+  min-height:100px;
+}
+
+button{
+  width:100%;
+  padding:18px;
+  border:0;
+  border-radius:8px;
+  margin-top:30px;
+  background:#403329;
+  color:#fff;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.result{
+  margin-top:30px;
+  padding:20px;
+  background:#f8f5f0;
+  border-radius:8px;
+  display:none;
+  line-height:1.8;
+}
+
+.warning{
+  margin-top:20px;
+  padding:15px;
+  background:#fff7e8;
+  border:1px solid #efd8aa;
+  border-radius:7px;
+  font-size:14px;
+  line-height:1.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<h1>개인회생 지역별 글 자동생성기</h1>
+
+<div class="guide">
+지역명을 한 줄에 하나씩 넣고<br>
+사용할 제목 키워드를 입력하면 최대 50개의 HTML 글을 자동으로 만듭니다.
+</div>
+
+
+<label>① 지역 입력</label>
+
+<textarea id="regions" placeholder="예시
+서울 강남구
+서울 강동구
+서울 송파구
+부산 해운대구
+대구 수성구"></textarea>
+
+
+<label>② 제목에 사용할 키워드</label>
+
+<textarea id="keywords" class="keywords" placeholder="예시
+개인회생변호사
+개인회생상담
+개인회생신청
+개인회생자격
+개인회생법률상담
+채무조정
+개인회생상담문의"></textarea>
+
+
+<label>③ 상담 링크</label>
+
+<input id="link"
+value="https://replyalba.com/intros/law_seoyul/">
+
+
+<button onclick="generateAll()">
+HTML 글 생성하기
+</button>
+
+
+<div class="result" id="result"></div>
+
+
+<div class="warning">
+생성된 글은 지역명과 제목뿐 아니라 도입부와 일부 설명 문장도 여러 형태로 조합됩니다.
+다만 검색 노출 여부는 검색엔진이 판단하며, 실질적인 내용이 거의 같은 페이지를 지나치게 많이 만드는 것은 검색 노출에 불리할 수 있습니다.
+</div>
+
+</div>
+
+
+<script>
+
+/* 사용하지 않을 광고 표현 */
+const bannedWords = [
+  "무료",
+  "무료상담",
+  "전문",
+  "전담",
+  "최고",
+  "최저",
+  "유일",
+  "압도적인",
+  "후불",
+  "100% 환불",
+  "기각시 환불",
+  "기각 시 환불"
+];
+
+
+/* 도입부 */
+const intros = [
+
+`매달 대출과 카드대금을 갚고 있어도
+원금이 좀처럼 줄어들지 않고
+이자 부담까지 계속 커지고 있다면
+현재의 채무 상황을 다시 살펴볼 필요가 있습니다.
+
+처음에는 조금만 더 버티면 괜찮아질 거라 생각하지만
+생활비까지 부족해지고 기존 채무를 갚기 위해
+새로운 대출을 이용하는 상황이 반복되기도 합니다.`,
+
+`꾸준히 소득이 발생하고 있는데도
+매달 갚아야 할 채무가 커
+생활비까지 부담되고 있나요?
+
+원금과 이자 상환이 반복되면서
+현재 소득만으로 정상적인 변제가 어려워졌다면
+개인회생 제도를 통해 채무조정이 가능한지
+확인해 보는 것도 방법입니다.`,
+
+`대출 원금과 이자가 계속 쌓이고
+매월 상환해야 하는 금액 때문에
+경제적인 부담을 느끼는 경우가 있습니다.
+
+특히 연체가 시작되거나
+채권자의 독촉과 추심이 이어지고 있다면
+막연하게 미루기보다 현재 채무와 소득 상황을
+구체적으로 확인해 보는 것이 중요합니다.`,
+
+`열심히 채무를 상환하고 있어도
+이자 때문에 원금이 줄지 않는다면
+상환 방식 자체를 다시 검토해야 할 수 있습니다.
+
+현재 소득과 재산으로 전체 채무를
+감당하기 어려운 상황이라면
+개인회생 신청 요건에 해당하는지
+먼저 확인해 보는 것이 좋습니다.`,
+
+`채무가 늘어나면서
+매달 돌아오는 상환일이 부담스럽게 느껴지고
+일상생활까지 영향을 받고 있다면
+혼자 고민만 이어갈 필요는 없습니다.
+
+개인회생은 일정한 요건을 충족하는 경우
+법원의 절차를 통해 채무조정을
+검토할 수 있도록 마련된 제도입니다.`
+
+];
+
+
+/* 개인회생 설명 */
+const explanations = [
+
+`개인회생은 일정한 수입이 있지만
+현재의 채무를 정상적으로 감당하기 어려운 사람이
+법원의 절차를 통해 채무를 조정하고
+경제적인 재기를 준비할 수 있도록 마련된 제도입니다.`,
+
+`개인회생 제도는 계속적 또는 반복적인 수입이 있으면서
+현재 가지고 있는 채무를 정상적으로 갚기 어려운 경우
+법원의 심사를 거쳐 채무조정을 검토할 수 있는 절차입니다.`,
+
+`소득은 발생하고 있지만
+현재의 채무 규모 때문에 정상적인 상환이 어렵다면
+개인회생 절차를 통해 일정 기간 변제계획을 이행하고
+관련 요건에 따라 면책을 검토할 수 있습니다.`
+
+];
+
+
+/* 직업 설명 */
+const jobTexts = [
+
+`개인회생에서는 직업의 명칭 자체보다
+계속적 또는 반복적인 소득을 얻을 가능성이 있는지가 중요합니다.
+
+회사원과 자영업자는 물론
+계약직, 프리랜서, 일용직, 아르바이트 등도
+소득을 확인할 수 있다면 신청 가능성을 살펴볼 수 있습니다.`,
+
+`정규직이 아니라는 이유만으로
+개인회생 신청 가능성이 없는 것은 아닙니다.
+
+계약직이나 프리랜서, 일용직, 아르바이트,
+자영업자 등 다양한 형태로 소득활동을 하고 있다면
+관련 자료를 통해 현재 소득을 확인하게 됩니다.`,
+
+`직업의 종류는 사람마다 다를 수 있습니다.
+개인회생에서는 현재 어떤 직업을 가지고 있는지뿐 아니라
+앞으로도 일정한 소득을 얻을 가능성이 있는지를 함께 살펴봅니다.
+
+수입이 매월 일정하지 않은 경우에도
+소득을 확인할 수 있는 자료를 준비하여
+신청 가능 여부를 검토할 수 있습니다.`
+
+];
+
+
+/* 준비사항 */
+const prepareTexts = [
+
+`소득과 재산, 채무 규모와 발생 경위 등은
+개인마다 다르기 때문에
+실제 준비해야 할 자료에도 차이가 있을 수 있습니다.
+
+주식이나 가상자산, 도박 등으로
+채무가 증가한 경우에는
+구체적인 상황에 따라 추가적인 소명이나
+자료가 요구될 수도 있습니다.`,
+
+`같은 금액의 채무가 있다고 해도
+월 소득과 보유 재산, 부양가족,
+채무가 발생하게 된 과정은 모두 다를 수 있습니다.
+
+따라서 다른 사례만 보고 판단하기보다
+현재 본인의 상황에서 어떤 자료가 필요한지
+확인하는 것이 중요합니다.`,
+
+`개인회생 절차에서는
+소득과 재산, 채권자와 채무금액 등
+여러 자료를 확인하게 됩니다.
+
+법원의 심사 과정에서
+추가적인 자료 제출이나 보정이 필요한 경우도 있어
+신청 전에 필요한 내용을 정리하는 것이 좋습니다.`
+
+];
+
+
+/* 마무리 */
+const endings = [
+
+`채무가 많다고 해서
+모두 같은 방법으로 해결해야 하는 것은 아닙니다.
+
+현재 가지고 있는 채무와 소득, 재산을 정리하고
+본인에게 적합한 방법이 무엇인지
+확인해 보는 것이 중요합니다.`,
+
+`개인회생 신청 가능 여부는
+채무 금액 하나만으로 판단하기 어렵습니다.
+
+소득과 재산, 채무 발생 과정 등을 함께 살펴보고
+현재 상황에서 이용할 수 있는 절차가 있는지
+확인해 보시기 바랍니다.`,
+
+`채무 문제를 계속 미루기보다
+현재 경제 상황부터 정확하게 확인하는 것이 중요합니다.
+
+개인회생을 알아보고 있다면
+신청 가능 여부와 준비해야 할 내용을
+상담을 통해 확인해 볼 수 있습니다.`
+
+];
+
+
+function pick(arr,index,offset=0){
+  return arr[(index + offset) % arr.length];
+}
+
+
+function cleanKeyword(word){
+
+  let result = word.trim();
+
+  bannedWords.forEach(b => {
+    result = result.split(b).join("");
+  });
+
+  return result.trim();
+}
+
+
+function shuffle(arr,seed){
+
+  let a = [...arr];
+
+  for(let i=a.length-1;i>0;i--){
+
+    const j = (seed * 7 + i * 13) % (i+1);
+
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+
+  return a;
+}
+
+
+function slugRegion(region,index){
+
+  const roman = [
+    "seoul","busan","daegu","incheon","gwangju",
+    "daejeon","ulsan","suwon","goyang","yongin",
+    "changwon","seongnam","cheongju","bucheon","ansan",
+    "jeonju","anyang","pohang","gimhae","pyeongtaek"
+  ];
+
+  return roman[index % roman.length] +
+         "-personal-rehabilitation-" +
+         String(index+1).padStart(2,"0");
+}
+
+
+function makeTitle(region,keywords,index){
+
+  const safe = keywords
+    .map(cleanKeyword)
+    .filter(Boolean);
+
+  const mixed = shuffle(safe,index+1);
+
+  const count = Math.min(
+    mixed.length,
+    index % 2 === 0 ? 3 : 4
+  );
+
+  return region + " " + mixed.slice(0,count).join(" ");
+}
+
+
+function nl(text){
+
+  return text
+    .split("\n\n")
+    .map(p =>
+      "<p>" +
+      p.replace(/\n/g,"<br>") +
+      "</p>"
+    )
+    .join("\n");
+}
+
+
+function makePage(region,keywords,index,link){
+
+  const title = makeTitle(region,keywords,index);
+
+  const intro = pick(intros,index);
+  const explanation = pick(explanations,index,1);
+  const jobs = pick(jobTexts,index,2);
+  const preparation = pick(prepareTexts,index,1);
+  const ending = pick(endings,index,2);
+
+
+return `<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>${title}</title>
+
+<meta name="description"
+content="${region} 개인회생 신청자격과 조건, 소득과 채무 기준 및 개인회생 진행 시 확인해야 할 내용을 안내합니다.">
+
+<meta name="robots"
+content="index,follow">
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+background:#f5f5f5;
+color:#222;
+font-family:Arial,"Noto Sans KR",sans-serif;
+line-height:1.85;
+word-break:keep-all;
+}
+
+.container{
+max-width:780px;
+margin:auto;
+background:white;
+padding:30px 25px 50px;
+}
+
+.ad{
+text-align:center;
+font-size:14px;
+color:#666;
+margin-bottom:25px;
+}
+
+.thumbnail{
+display:block;
+width:100%;
+max-width:420px;
+margin:0 auto 35px;
+}
+
+h1{
+font-size:28px;
+line-height:1.5;
+margin:25px 0 32px;
+}
+
+h2{
+font-size:21px;
+margin:48px 0 20px;
+padding-left:12px;
+border-left:4px solid #735b3a;
+}
+
+p{
+font-size:17px;
+margin:0 0 19px;
+}
+
+.content-image{
+display:block;
+width:100%;
+height:auto;
+margin:30px auto 40px;
+}
+
+.cta{
+margin:38px 0 45px;
+}
+
+.cta a{
+display:block;
+padding:18px 15px;
+text-align:center;
+background:#403329;
+color:white;
+text-decoration:none;
+font-size:18px;
+font-weight:bold;
+border-radius:6px;
+}
+
+.checkbox{
+background:#f8f5f0;
+padding:23px;
+border-radius:8px;
+margin:25px 0 35px;
+}
+
+.check{
+font-size:17px;
+font-weight:600;
+margin:13px 0;
+}
+
+.check:before{
+content:"✓";
+color:#725633;
+font-weight:bold;
+margin-right:9px;
+}
+
+.lawyer{
+text-align:center;
+margin-top:45px;
+padding-top:25px;
+border-top:1px solid #ddd;
+font-size:14px;
+color:#555;
+}
+
+@media(max-width:600px){
+
+.container{
+padding:22px 18px 40px;
+}
+
+h1{
+font-size:24px;
+}
+
+h2{
+font-size:20px;
+}
+
+p,.check{
+font-size:16px;
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+<div class="ad">
+본 포스팅은 유료광고를 포함하고 있습니다.
+</div>
+
+
+<img
+src="thumbnail.png.png"
+alt="${region} 개인회생 상담 안내"
+class="thumbnail">
+
+
+<h1>${title}</h1>
+
+
+${nl(intro)}
+
+
+<p>
+${region}에서 개인회생을 알아보고 있다면<br>
+현재 소득과 재산, 전체 채무 상황을 확인하고<br>
+신청요건에 해당하는지 살펴보는 것이 중요합니다.
+</p>
+
+
+<div class="cta">
+
+<a href="${link}"
+target="_blank"
+rel="noopener noreferrer">
+
+개인회생 1:1 상담 바로가기 ▼
+
+</a>
+
+</div>
+
+
+<h2>■ 개인회생은 어떤 제도인가요?</h2>
+
+${nl(explanation)}
+
+<p>
+신청만으로 채무가 조정되는 것은 아니며<br>
+소득과 재산, 전체 채무 규모 등을 확인하고<br>
+법원의 심사를 거쳐야 합니다.
+</p>
+
+<p>
+변제계획이 인가된 후<br>
+정해진 기간 동안 이를 이행하면<br>
+관련 절차와 요건에 따라<br>
+남은 채무에 대한 면책을 받을 수 있습니다.
+</p>
+
+
+<img
+src="qualification.png.png"
+alt="${region} 개인회생 신청자격 안내"
+class="content-image">
+
+
+<h2>■ 개인회생 자격조건을 확인해 보세요</h2>
+
+
+<p>
+<strong>✓ 지속적인 소득</strong><br>
+급여나 사업소득 등 계속적 또는 반복적으로<br>
+얻을 가능성이 있는 수입이 필요합니다.
+</p>
+
+
+<p>
+<strong>✓ 채무 상환이 어려운 상황</strong><br>
+현재 소득과 재산 등을 고려했을 때<br>
+채무를 정상적으로 갚기 어려운 상황인지<br>
+확인하게 됩니다.
+</p>
+
+
+<p>
+<strong>✓ 채무 한도</strong><br>
+무담보채무는 10억 원 이하,<br>
+담보부채무는 15억 원 이하인 경우<br>
+개인회생 신청을 검토할 수 있습니다.
+</p>
+
+
+<p>
+<strong>✓ 보유 재산</strong><br>
+부동산, 자동차, 예금, 보험 등<br>
+현재 보유하고 있는 재산도<br>
+함께 확인해야 합니다.
+</p>
+
+
+<p>
+<strong>✓ 과거 면책 여부</strong><br>
+이전에 개인회생이나 파산 등을 통해<br>
+면책을 받은 경험이 있다면<br>
+관련 시점을 함께 확인할 필요가 있습니다.
+</p>
+
+
+<h2>■ 직업이 달라도 신청을 검토할 수 있습니다</h2>
+
+${nl(jobs)}
+
+
+<img
+src="job-types.png.png"
+alt="${region} 직업별 개인회생 안내"
+class="content-image">
+
+
+<h2>■ 개인마다 준비해야 하는 내용이 다릅니다</h2>
+
+${nl(preparation)}
+
+
+<img
+src="legal-info.png.png"
+alt="개인회생 파산 법률정보 안내"
+class="content-image">
+
+
+<h2>■ 법무법인 서앤율의 강점</h2>
+
+
+<p>
+개인회생은 신청서 작성뿐 아니라<br>
+접수 이후 법원의 심사와 보정,<br>
+변제계획 등 여러 과정을<br>
+확인해야 하는 절차입니다.
+</p>
+
+
+<p>
+법무법인 서앤율에서는<br>
+현재의 채무와 소득, 재산 상황을 살펴보고<br>
+개인회생·파산 절차를 진행하면서<br>
+확인해야 할 내용을 안내합니다.
+</p>
+
+
+<img
+src="seoyul-lawyer.png.png"
+alt="법무법인 서앤율 개인회생 파산 안내"
+class="content-image">
+
+
+<div class="checkbox">
+
+<div class="check">
+변호사가 직접 사건 관리
+</div>
+
+<div class="check">
+신청서 접수 및 보정 과정 확인
+</div>
+
+<div class="check">
+채권자집회 등 진행 과정 확인
+</div>
+
+<div class="check">
+변제계획 인가 및 면책 과정 확인
+</div>
+
+<div class="check">
+전국 상담 및 진행 가능
+</div>
+
+<div class="check">
+수임료 분납 가능
+</div>
+
+<div class="check">
+사건 진행상황 확인
+</div>
+
+<div class="check">
+1:1 비밀상담
+</div>
+
+</div>
+
+
+<h2>■ 현재 상황부터 확인해 보세요</h2>
+
+${nl(ending)}
+
+
+<img
+src="seoyul-benefits.png.png"
+alt="법무법인 서앤율 상담 안내"
+class="content-image">
+
+
+<p>
+채무 부담으로 고민하고 있다면<br>
+법무법인 서앤율과 상담을 통해<br>
+개인회생 신청 가능 여부와<br>
+필요한 준비사항을 확인해 보시기 바랍니다.
+</p>
+
+
+<div class="cta">
+
+<a href="${link}"
+target="_blank"
+rel="noopener noreferrer">
+
+개인회생 1:1 상담 바로가기 ▼
+
+</a>
+
+</div>
+
+
+<div class="lawyer">
+
+광고책임 변호사 구제준
+
+</div>
+
+
+</div>
+
+</body>
+
+</html>`;
+
+}
+
+
+async function generateAll(){
+
+  const regions =
+    document.getElementById("regions")
+    .value
+    .split("\n")
+    .map(v=>v.trim())
+    .filter(Boolean)
+    .slice(0,50);
+
+
+  const keywords =
+    document.getElementById("keywords")
+    .value
+    .split("\n")
+    .map(v=>v.trim())
+    .filter(Boolean);
+
+
+  const link =
+    document.getElementById("link")
+    .value
+    .trim();
+
+
+  if(regions.length === 0){
+
+    alert("지역을 입력해 주세요.");
+    return;
+
+  }
+
+
+  if(keywords.length === 0){
+
+    alert("제목 키워드를 입력해 주세요.");
+    return;
+
+  }
+
+
+  const zip = new JSZip();
+
+  const titles = [];
+
+
+  regions.forEach((region,index)=>{
+
+    const title =
+      makeTitle(region,keywords,index);
+
+    const file =
+      slugRegion(region,index) + ".html";
+
+    const html =
+      makePage(
+        region,
+        keywords,
+        index,
+        link
+      );
+
+    zip.file(file,html);
+
+    titles.push(
+      `${index+1}. ${title}<br>→ ${file}`
+    );
+
+  });
+
+
+  const blob =
+    await zip.generateAsync({
+      type:"blob"
+    });
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const a =
+    document.createElement("a");
+
+
+  a.href = url;
+
+  a.download =
+    "personal-rehabilitation-pages.zip";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+
+  const result =
+    document.getElementById("result");
+
+
+  result.style.display = "block";
+
+  result.innerHTML =
+    `<strong>${regions.length}개 글 생성 완료</strong><br><br>` +
+    titles.join("<br><br>");
+
+}
+
+</script>
+
+</body>
+</html>
