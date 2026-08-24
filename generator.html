@@ -143,11 +143,15 @@ button:hover {
 
 <div class="guide">
 지역을 한 줄에 하나씩 입력하고<br>
-제목에 사용할 키워드를 입력하세요.<br>
+제목에 사용할 개인회생 키워드를 입력하세요.<br>
 최대 50개의 HTML 페이지를 한 번에 생성합니다.<br><br>
 
-이전에 사용한 제목은 자동으로 기억해서<br>
-다음 생성 시 동일한 제목을 피하도록 구성되어 있습니다.
+제목은 항상<br>
+<strong>개인회생변호사 + 지역 + 키워드 2개 + 마무리 문구</strong><br>
+순서로 만들어집니다.<br><br>
+
+이전에 생성한 제목은 브라우저에 저장하여<br>
+동일한 제목이 다시 만들어지는 것을 피합니다.
 </div>
 
 
@@ -162,15 +166,16 @@ button:hover {
 
 <label>② 제목 키워드</label>
 
-<textarea id="keywords" placeholder="개인회생변호사
-개인회생상담
+<textarea id="keywords" placeholder="개인회생상담
 개인회생신청
 개인회생신청자격
 개인회생자격
 개인회생절차
 채무조정
 개인회생법률상담
-개인회생상담문의"></textarea>
+개인회생상담문의
+개인회생신청방법
+개인회생채무조정"></textarea>
 
 
 <label>③ 상담 링크</label>
@@ -205,41 +210,20 @@ value="https://replyalba.com/intros/law_seoyul/">
 
 
 <div class="notice">
-제목 구조는
-<strong>지역 + 키워드 3개 + 마무리 문구</strong>입니다.<br>
+제목 맨 앞에는 항상
+<strong>개인회생변호사</strong>가 들어갑니다.<br>
 
-사용했던 제목은 현재 브라우저에 저장됩니다.
-브라우저 데이터를 삭제하거나 다른 컴퓨터를 사용하면
-기록이 사라질 수 있으므로 필요하면
-'사용한 제목 기록 백업하기'를 이용하세요.
+그 뒤에 지역명과 키워드 2개,
+마무리 문구가 자동으로 조합됩니다.<br><br>
+
+사용한 제목 기록은 현재 브라우저에 저장됩니다.
+평소에는 제목 기록 초기화를 누르지 마세요.
 </div>
 
 </div>
 
 
 <script>
-
-/* =========================
-   광고 금지 표현
-========================= */
-
-const bannedWords = [
-  "무료",
-  "무료상담",
-  "전문",
-  "전담",
-  "최고",
-  "최저",
-  "유일",
-  "압도적인",
-  "후불",
-  "100% 환불",
-  "기각시 100% 환불",
-  "기각 시 100% 환불",
-  "할인쿠폰",
-  "수익금 지급"
-];
-
 
 /* =========================
    제목 마무리 문구
@@ -275,7 +259,7 @@ const titleEndings = [
 
 
 /* =========================
-   공감형 도입부
+   도입부
 ========================= */
 
 const intros = [
@@ -576,7 +560,7 @@ const endings = [
    제목 기록
 ========================= */
 
-const HISTORY_KEY = "seoyul_used_titles_v3";
+const HISTORY_KEY = "seoyul_used_titles_v4";
 
 
 function loadHistory() {
@@ -659,20 +643,6 @@ function downloadHistory() {
    공통 함수
 ========================= */
 
-function cleanKeyword(word) {
-
-  let cleaned = word.trim();
-
-  bannedWords.forEach(function(banned) {
-
-    cleaned =
-      cleaned.split(banned).join("");
-  });
-
-  return cleaned.trim();
-}
-
-
 function randomItem(array) {
 
   return array[
@@ -681,7 +651,7 @@ function randomItem(array) {
 }
 
 
-function randomThree(array) {
+function randomTwo(array) {
 
   const copy = [...array];
 
@@ -694,12 +664,13 @@ function randomThree(array) {
       [copy[j], copy[i]];
   }
 
-  return copy.slice(0, 3);
+  return copy.slice(0,2);
 }
 
 
 /* =========================
-   중복 없는 제목 생성
+   제목 생성
+   개인회생변호사 맨 앞 고정
 ========================= */
 
 function createUniqueTitle(
@@ -711,30 +682,33 @@ function createUniqueTitle(
   const safeKeywords =
     [...new Set(
       keywords
-        .map(cleanKeyword)
+        .map(v => v.trim())
         .filter(Boolean)
+        .filter(v => v !== "개인회생변호사")
     )];
 
 
-  if(safeKeywords.length < 3) {
+  if(safeKeywords.length < 2) {
 
     throw new Error(
-      "제목 키워드를 최소 3개 이상 입력해 주세요."
+      "개인회생변호사를 제외한 제목 키워드를 최소 2개 이상 입력해 주세요."
     );
   }
 
 
   for(let attempt = 0;
-      attempt < 1000;
+      attempt < 2000;
       attempt++) {
 
     const selected =
-      randomThree(safeKeywords);
+      randomTwo(safeKeywords);
 
     const ending =
       randomItem(titleEndings);
 
+
     const title =
+      "개인회생변호사 " +
       region + " " +
       selected.join(" ") +
       " " +
@@ -750,7 +724,7 @@ function createUniqueTitle(
 
   throw new Error(
     region +
-    " 지역에서 새로운 제목 조합을 만들지 못했습니다. 키워드나 마무리 문구를 추가해 주세요."
+    " 지역의 새로운 제목 조합이 부족합니다. 제목 키워드를 더 추가해 주세요."
   );
 }
 
@@ -778,7 +752,7 @@ function batchCode() {
 }
 
 
-function makeFileName(batch, index) {
+function makeFileName(batch,index) {
 
   return (
     "pr-" +
@@ -806,7 +780,7 @@ function paragraphs(text) {
 
 
 /* =========================
-   실제 글 HTML
+   실제 페이지 생성
 ========================= */
 
 function createHTML(
@@ -1013,7 +987,6 @@ p {
   color: #666;
 }
 
-
 @media(max-width:600px) {
 
   .container {
@@ -1154,81 +1127,50 @@ class="content-image">
 
 <div class="point-box">
 
-
 <div class="point-item">
-
-<span class="point-title">
-✓ 지속적인 소득
-</span>
-
+<span class="point-title">✓ 지속적인 소득</span>
 <div class="point-text">
 급여나 사업소득 등<br>
 계속적 또는 반복적으로<br>
 얻을 가능성이 있는 수입이 필요합니다.
 </div>
-
 </div>
 
-
 <div class="point-item">
-
-<span class="point-title">
-✓ 채무 상환이 어려운 상황
-</span>
-
+<span class="point-title">✓ 채무 상환이 어려운 상황</span>
 <div class="point-text">
 현재 소득과 재산 등을 고려했을 때<br>
 채무를 정상적으로 갚기 어려운 상황인지<br>
 확인하게 됩니다.
 </div>
-
 </div>
 
-
 <div class="point-item">
-
-<span class="point-title">
-✓ 채무 한도
-</span>
-
+<span class="point-title">✓ 채무 한도</span>
 <div class="point-text">
 무담보채무는 10억 원 이하,<br>
 담보부채무는 15억 원 이하인 경우<br>
 개인회생 신청을 검토할 수 있습니다.
 </div>
-
 </div>
 
-
 <div class="point-item">
-
-<span class="point-title">
-✓ 보유 재산
-</span>
-
+<span class="point-title">✓ 보유 재산</span>
 <div class="point-text">
 부동산과 자동차, 예금, 보험 등<br>
 현재 가지고 있는 재산도<br>
 함께 확인해야 합니다.
 </div>
-
 </div>
 
-
 <div class="point-item">
-
-<span class="point-title">
-✓ 과거 면책 여부
-</span>
-
+<span class="point-title">✓ 과거 면책 여부</span>
 <div class="point-text">
 이전에 개인회생이나 파산 등을 통해<br>
 면책을 받은 경험이 있다면<br>
 관련 시점을 확인할 필요가 있습니다.
 </div>
-
 </div>
-
 
 </div>
 
@@ -1299,37 +1241,21 @@ class="content-image">
 
 <div class="check-box">
 
-<div class="check">
-변호사가 직접 사건 관리
-</div>
+<div class="check">변호사가 직접 사건 관리</div>
 
-<div class="check">
-신청서 접수 및 보정 과정 확인
-</div>
+<div class="check">신청서 접수 및 보정 과정 확인</div>
 
-<div class="check">
-채권자집회 등 진행 과정 확인
-</div>
+<div class="check">채권자집회 등 진행 과정 확인</div>
 
-<div class="check">
-변제계획 인가 및 면책 과정 확인
-</div>
+<div class="check">변제계획 인가 및 면책 과정 확인</div>
 
-<div class="check">
-전국 상담 및 진행 가능
-</div>
+<div class="check">전국 상담 및 진행 가능</div>
 
-<div class="check">
-수임료 분납 가능
-</div>
+<div class="check">수임료 분납 가능</div>
 
-<div class="check">
-사건 진행상황 확인
-</div>
+<div class="check">사건 진행상황 확인</div>
 
-<div class="check">
-1:1 비밀상담
-</div>
+<div class="check">1:1 비밀상담</div>
 
 </div>
 
@@ -1370,16 +1296,13 @@ ${buttonText}
 
 
 <div class="lawyer">
-
 광고책임 변호사 구제준
-
 </div>
 
 
 </div>
 
 </body>
-
 </html>`;
 }
 
@@ -1424,9 +1347,11 @@ async function generatePages() {
   }
 
 
-  if(keywords.length < 3) {
+  if(keywords.filter(v => v !== "개인회생변호사").length < 2) {
 
-    alert("제목 키워드를 최소 3개 이상 입력해 주세요.");
+    alert(
+      "개인회생변호사를 제외한 제목 키워드를 최소 2개 이상 입력해 주세요."
+    );
 
     return;
   }
@@ -1493,14 +1418,12 @@ async function generatePages() {
 
 
       preview.push(
-
         "<strong>" +
         (index + 1) +
         ". " +
         title +
         "</strong><br>" +
         filename
-
       );
 
     });
@@ -1513,16 +1436,12 @@ async function generatePages() {
   }
 
 
-  /* 새 제목 기록 저장 */
-
   const allHistory =
     oldHistory.concat(newTitles);
 
 
   saveHistory(allHistory);
 
-
-  /* ZIP 생성 */
 
   const blob =
     await zip.generateAsync({
@@ -1559,8 +1478,6 @@ async function generatePages() {
   URL.revokeObjectURL(url);
 
 
-  /* 생성 결과 */
-
   const result =
     document.getElementById("result");
 
@@ -1570,19 +1487,18 @@ async function generatePages() {
 
 
   result.innerHTML =
-
     "<strong>" +
     regions.length +
     "개 페이지 생성 완료</strong><br><br>" +
 
-    "이번에 사용한 제목은 기존 제목 기록에 자동 저장되었습니다.<br><br>" +
+    "제목은 모두 개인회생변호사로 시작합니다.<br>" +
+    "이번 제목도 중복 방지 기록에 저장되었습니다.<br><br>" +
 
     preview.join("<br><br>");
 
 }
 
 
-/* 시작할 때 기록 개수 표시 */
 updateHistoryCount();
 
 </script>
