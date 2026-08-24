@@ -150,8 +150,8 @@ button:hover {
 <strong>지역 + 개인회생변호사 + 키워드 2개 + 마무리 문구</strong><br>
 형태로 생성됩니다.<br><br>
 
-'무료'가 들어간 키워드는 자동으로 제외합니다.<br>
-이전에 생성한 제목도 저장하여 중복 생성을 방지합니다.
+기존 사이트맵에 오늘 만든 글 주소가 자동으로 추가되어<br>
+새로운 <strong>sitemap.xml</strong>도 함께 생성됩니다.
 </div>
 
 
@@ -186,7 +186,7 @@ value="https://replyalba.com/intros/law_seoyul/">
 
 
 <button onclick="generatePages()">
-50개 글 생성하기
+50개 글 + 사이트맵 생성하기
 </button>
 
 
@@ -210,19 +210,32 @@ value="https://replyalba.com/intros/law_seoyul/">
 
 
 <div class="notice">
-제목은 항상 지역명이 가장 먼저 나옵니다.<br><br>
+ZIP 안에는 새 HTML 글들과
+<strong>sitemap.xml</strong>이 함께 들어갑니다.<br><br>
 
-예시:<br>
-<strong>서울 종로구 개인회생변호사 개인회생상담 채무조정 해결방법</strong><br><br>
+새 sitemap.xml에는 기존 사이트맵 주소를 유지하면서
+이번에 만든 새 글 주소를 추가합니다.<br><br>
 
-'무료'라는 단어가 포함된 키워드는 제목 생성에서 제외됩니다.<br>
-중복 방지를 위해 제목 기록 초기화는 평소에 누르지 마세요.
+기존 사이트맵을 불러오지 못하면
+잘못된 사이트맵으로 덮어쓰지 않도록
+글 생성을 중단하도록 설정되어 있습니다.
 </div>
 
 </div>
 
 
 <script>
+
+/* =========================
+   기본 설정
+========================= */
+
+const SITE_URL =
+  "https://info-guide.pages.dev";
+
+const SITEMAP_URL =
+  SITE_URL + "/sitemap.xml";
+
 
 /* =========================
    제목 마무리
@@ -564,21 +577,27 @@ const endings = [
    제목 기록
 ========================= */
 
-const HISTORY_KEY = "seoyul_used_titles_v5";
+const HISTORY_KEY =
+  "seoyul_used_titles_v6";
 
 
 function loadHistory() {
+
   try {
+
     return JSON.parse(
       localStorage.getItem(HISTORY_KEY) || "[]"
     );
+
   } catch(e) {
+
     return [];
   }
 }
 
 
 function saveHistory(history) {
+
   localStorage.setItem(
     HISTORY_KEY,
     JSON.stringify(history)
@@ -589,10 +608,14 @@ function saveHistory(history) {
 
 
 function updateHistoryCount() {
-  const history = loadHistory();
 
-  document.getElementById("historyCount")
-    .textContent = history.length;
+  const history =
+    loadHistory();
+
+  document
+    .getElementById("historyCount")
+    .textContent =
+    history.length;
 }
 
 
@@ -614,21 +637,31 @@ function resetHistory() {
 
 function downloadHistory() {
 
-  const history = loadHistory();
+  const history =
+    loadHistory();
 
-  const text = history.join("\n");
+  const text =
+    history.join("\n");
 
-  const blob = new Blob(
-    [text],
-    {type:"text/plain;charset=utf-8"}
-  );
+  const blob =
+    new Blob(
+      [text],
+      {
+        type:
+        "text/plain;charset=utf-8"
+      }
+    );
 
-  const url = URL.createObjectURL(blob);
+  const url =
+    URL.createObjectURL(blob);
 
-  const a = document.createElement("a");
+  const a =
+    document.createElement("a");
 
   a.href = url;
-  a.download = "used-title-history.txt";
+
+  a.download =
+    "used-title-history.txt";
 
   a.click();
 
@@ -637,25 +670,34 @@ function downloadHistory() {
 
 
 /* =========================
-   랜덤 함수
+   랜덤
 ========================= */
 
 function randomItem(array) {
 
   return array[
-    Math.floor(Math.random() * array.length)
+    Math.floor(
+      Math.random() * array.length
+    )
   ];
 }
 
 
 function randomTwo(array) {
 
-  const copy = [...array];
+  const copy =
+    [...array];
 
-  for(let i = copy.length - 1; i > 0; i--) {
+  for(
+    let i = copy.length - 1;
+    i > 0;
+    i--
+  ) {
 
     const j =
-      Math.floor(Math.random() * (i + 1));
+      Math.floor(
+        Math.random() * (i + 1)
+      );
 
     [copy[i], copy[j]] =
       [copy[j], copy[i]];
@@ -666,32 +708,31 @@ function randomTwo(array) {
 
 
 /* =========================
-   키워드 필터
+   키워드 정리
 ========================= */
 
 function cleanKeywords(keywords) {
 
-  return [...new Set(
-    keywords
-      .map(v => v.trim())
-      .filter(Boolean)
-
-      /* 개인회생변호사는 코드에서 고정 */
-      .filter(v => v !== "개인회생변호사")
-
-      /* 무료 포함 키워드 전부 제거 */
-      .filter(v => !v.includes("무료"))
-  )];
+  return [
+    ...new Set(
+      keywords
+        .map(v => v.trim())
+        .filter(Boolean)
+        .filter(
+          v =>
+          v !== "개인회생변호사"
+        )
+        .filter(
+          v =>
+          !v.includes("무료")
+        )
+    )
+  ];
 }
 
 
 /* =========================
    제목 생성
-
-   지역
-   + 개인회생변호사
-   + 키워드 2개
-   + 마무리
 ========================= */
 
 function createUniqueTitle(
@@ -707,7 +748,7 @@ function createUniqueTitle(
   if(safeKeywords.length < 2) {
 
     throw new Error(
-      "무료 키워드와 개인회생변호사를 제외한 키워드를 최소 2개 이상 입력해 주세요."
+      "사용 가능한 제목 키워드를 최소 2개 이상 입력해 주세요."
     );
   }
 
@@ -725,8 +766,6 @@ function createUniqueTitle(
       randomItem(titleEndings);
 
 
-    /* ★ 지역이 무조건 맨 앞 */
-
     const title =
       region +
       " 개인회생변호사 " +
@@ -736,6 +775,7 @@ function createUniqueTitle(
 
 
     if(!usedSet.has(title)) {
+
       return title;
     }
   }
@@ -743,7 +783,7 @@ function createUniqueTitle(
 
   throw new Error(
     region +
-    " 지역의 새로운 제목 조합이 부족합니다. 키워드를 더 추가해 주세요."
+    " 지역의 새로운 제목 조합이 부족합니다."
   );
 }
 
@@ -754,10 +794,13 @@ function createUniqueTitle(
 
 function batchCode() {
 
-  const d = new Date();
+  const d =
+    new Date();
 
-  const pad = n =>
+  const pad =
+    n =>
     String(n).padStart(2,"0");
+
 
   return (
     d.getFullYear() +
@@ -771,13 +814,17 @@ function batchCode() {
 }
 
 
-function makeFileName(batch,index) {
+function makeFileName(
+  batch,
+  index
+) {
 
   return (
     "pr-" +
     batch +
     "-" +
-    String(index + 1).padStart(2,"0") +
+    String(index + 1)
+      .padStart(2,"0") +
     ".html"
   );
 }
@@ -789,9 +836,14 @@ function paragraphs(text) {
     .split("\n\n")
     .map(function(block) {
 
-      return "<p>" +
-        block.replace(/\n/g,"<br>") +
-        "</p>";
+      return (
+        "<p>" +
+        block.replace(
+          /\n/g,
+          "<br>"
+        ) +
+        "</p>"
+      );
 
     })
     .join("\n");
@@ -799,13 +851,117 @@ function paragraphs(text) {
 
 
 /* =========================
-   실제 페이지
+   사이트맵 불러오기
+========================= */
+
+async function loadExistingSitemap() {
+
+  const response =
+    await fetch(
+      SITEMAP_URL +
+      "?t=" +
+      Date.now(),
+      {
+        cache:"no-store"
+      }
+    );
+
+
+  if(!response.ok) {
+
+    throw new Error(
+      "기존 sitemap.xml을 불러오지 못했습니다."
+    );
+  }
+
+
+  const xmlText =
+    await response.text();
+
+
+  const parser =
+    new DOMParser();
+
+
+  const xml =
+    parser.parseFromString(
+      xmlText,
+      "application/xml"
+    );
+
+
+  const error =
+    xml.querySelector(
+      "parsererror"
+    );
+
+
+  if(error) {
+
+    throw new Error(
+      "기존 sitemap.xml 형식을 읽을 수 없습니다."
+    );
+  }
+
+
+  const locs =
+    Array
+    .from(
+      xml.getElementsByTagName("loc")
+    )
+    .map(
+      node =>
+      node.textContent.trim()
+    )
+    .filter(Boolean);
+
+
+  return locs;
+}
+
+
+/* =========================
+   새 사이트맵 만들기
+========================= */
+
+function createSitemap(urls) {
+
+  const unique =
+    [...new Set(urls)];
+
+
+  let xml =
+`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+`;
+
+
+  unique.forEach(function(url) {
+
+    xml +=
+`  <url>
+    <loc>${url}</loc>
+  </url>
+`;
+
+  });
+
+
+  xml +=
+`</urlset>`;
+
+
+  return xml;
+}
+
+
+/* =========================
+   실제 글 HTML
 ========================= */
 
 function createHTML(
   region,
   title,
-  index,
   consultLink
 ) {
 
@@ -937,7 +1093,9 @@ p {
   font-weight: 700;
   line-height: 1.55;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  box-shadow:
+  0 4px 12px
+  rgba(0,0,0,.12);
 }
 
 .point-box {
@@ -1000,16 +1158,19 @@ p {
 .lawyer {
   margin-top: 46px;
   padding-top: 24px;
-  border-top: 1px solid #dddddd;
+  border-top:
+  1px solid #dddddd;
   text-align: center;
   font-size: 14px;
   color: #666;
 }
 
+
 @media(max-width:600px) {
 
   .container {
-    padding: 20px 17px 42px;
+    padding:
+    20px 17px 42px;
   }
 
   h1 {
@@ -1032,11 +1193,13 @@ p {
 
   .cta a {
     font-size: 16px;
-    padding: 17px 10px;
+    padding:
+    17px 10px;
   }
 
   .point-box {
-    padding: 18px 17px;
+    padding:
+    18px 17px;
   }
 
   .point-title {
@@ -1048,7 +1211,8 @@ p {
   }
 
   .check-box {
-    padding: 19px 18px;
+    padding:
+    19px 18px;
   }
 
   .check {
@@ -1146,50 +1310,81 @@ class="content-image">
 
 <div class="point-box">
 
+
 <div class="point-item">
-<span class="point-title">✓ 지속적인 소득</span>
+
+<span class="point-title">
+✓ 지속적인 소득
+</span>
+
 <div class="point-text">
 급여나 사업소득 등<br>
 계속적 또는 반복적으로<br>
 얻을 가능성이 있는 수입이 필요합니다.
 </div>
+
 </div>
 
+
 <div class="point-item">
-<span class="point-title">✓ 채무 상환이 어려운 상황</span>
+
+<span class="point-title">
+✓ 채무 상환이 어려운 상황
+</span>
+
 <div class="point-text">
 현재 소득과 재산 등을 고려했을 때<br>
 채무를 정상적으로 갚기 어려운 상황인지<br>
 확인하게 됩니다.
 </div>
+
 </div>
 
+
 <div class="point-item">
-<span class="point-title">✓ 채무 한도</span>
+
+<span class="point-title">
+✓ 채무 한도
+</span>
+
 <div class="point-text">
 무담보채무는 10억 원 이하,<br>
 담보부채무는 15억 원 이하인 경우<br>
 개인회생 신청을 검토할 수 있습니다.
 </div>
+
 </div>
 
+
 <div class="point-item">
-<span class="point-title">✓ 보유 재산</span>
+
+<span class="point-title">
+✓ 보유 재산
+</span>
+
 <div class="point-text">
 부동산과 자동차, 예금, 보험 등<br>
 현재 가지고 있는 재산도<br>
 함께 확인해야 합니다.
 </div>
+
 </div>
 
+
 <div class="point-item">
-<span class="point-title">✓ 과거 면책 여부</span>
+
+<span class="point-title">
+✓ 과거 면책 여부
+</span>
+
 <div class="point-text">
 이전에 개인회생이나 파산 등을 통해<br>
 면책을 받은 경험이 있다면<br>
 관련 시점을 확인할 필요가 있습니다.
 </div>
+
 </div>
+
 
 </div>
 
@@ -1260,21 +1455,37 @@ class="content-image">
 
 <div class="check-box">
 
-<div class="check">변호사가 직접 사건 관리</div>
+<div class="check">
+변호사가 직접 사건 관리
+</div>
 
-<div class="check">신청서 접수 및 보정 과정 확인</div>
+<div class="check">
+신청서 접수 및 보정 과정 확인
+</div>
 
-<div class="check">채권자집회 등 진행 과정 확인</div>
+<div class="check">
+채권자집회 등 진행 과정 확인
+</div>
 
-<div class="check">변제계획 인가 및 면책 과정 확인</div>
+<div class="check">
+변제계획 인가 및 면책 과정 확인
+</div>
 
-<div class="check">전국 상담 및 진행 가능</div>
+<div class="check">
+전국 상담 및 진행 가능
+</div>
 
-<div class="check">수임료 분납 가능</div>
+<div class="check">
+수임료 분납 가능
+</div>
 
-<div class="check">사건 진행상황 확인</div>
+<div class="check">
+사건 진행상황 확인
+</div>
 
-<div class="check">1:1 비밀상담</div>
+<div class="check">
+1:1 비밀상담
+</div>
 
 </div>
 
@@ -1327,7 +1538,7 @@ ${buttonText}
 
 
 /* =========================
-   생성
+   글 + 사이트맵 생성
 ========================= */
 
 async function generatePages() {
@@ -1352,19 +1563,25 @@ async function generatePages() {
 
 
   const keywords =
-    cleanKeywords(rawKeywords);
+    cleanKeywords(
+      rawKeywords
+    );
 
 
   const consultLink =
     document
-    .getElementById("consultLink")
+    .getElementById(
+      "consultLink"
+    )
     .value
     .trim();
 
 
   if(regions.length === 0) {
 
-    alert("지역을 입력해 주세요.");
+    alert(
+      "지역을 입력해 주세요."
+    );
 
     return;
   }
@@ -1380,6 +1597,28 @@ async function generatePages() {
   }
 
 
+  /* 기존 사이트맵 불러오기 */
+
+  let existingUrls;
+
+
+  try {
+
+    existingUrls =
+      await loadExistingSitemap();
+
+  } catch(error) {
+
+    alert(
+      "사이트맵을 불러오지 못해 생성을 중단합니다.\n\n" +
+      error.message +
+      "\n\n기존 sitemap.xml이 정상적으로 열리는지 먼저 확인해 주세요."
+    );
+
+    return;
+  }
+
+
   const oldHistory =
     loadHistory();
 
@@ -1388,7 +1627,9 @@ async function generatePages() {
     new Set(oldHistory);
 
 
-  const newTitles = [];
+  const newTitles =
+    [];
+
 
   const zip =
     new JSZip();
@@ -1398,12 +1639,21 @@ async function generatePages() {
     batchCode();
 
 
-  const preview = [];
+  const preview =
+    [];
+
+
+  const newPageUrls =
+    [];
 
 
   try {
 
-    regions.forEach(function(region,index) {
+    regions.forEach(
+      function(
+        region,
+        index
+      ) {
 
       const title =
         createUniqueTitle(
@@ -1413,9 +1663,14 @@ async function generatePages() {
         );
 
 
-      usedSet.add(title);
+      usedSet.add(
+        title
+      );
 
-      newTitles.push(title);
+
+      newTitles.push(
+        title
+      );
 
 
       const filename =
@@ -1429,7 +1684,6 @@ async function generatePages() {
         createHTML(
           region,
           title,
-          index,
           consultLink
         );
 
@@ -1437,6 +1691,17 @@ async function generatePages() {
       zip.file(
         filename,
         html
+      );
+
+
+      const pageUrl =
+        SITE_URL +
+        "/" +
+        filename;
+
+
+      newPageUrls.push(
+        pageUrl
       );
 
 
@@ -1453,18 +1718,53 @@ async function generatePages() {
 
   } catch(error) {
 
-    alert(error.message);
+    alert(
+      error.message
+    );
 
     return;
   }
 
 
+  /* 제목 기록 저장 */
+
   const allHistory =
-    oldHistory.concat(newTitles);
+    oldHistory.concat(
+      newTitles
+    );
 
 
-  saveHistory(allHistory);
+  saveHistory(
+    allHistory
+  );
 
+
+  /* 기존 + 신규 주소 누적 */
+
+  const allUrls =
+    [
+      ...existingUrls,
+      ...newPageUrls
+    ];
+
+
+  /* 새 사이트맵 */
+
+  const sitemap =
+    createSitemap(
+      allUrls
+    );
+
+
+  /* ZIP 안에 sitemap.xml 추가 */
+
+  zip.file(
+    "sitemap.xml",
+    sitemap
+  );
+
+
+  /* ZIP 다운로드 */
 
   const blob =
     await zip.generateAsync({
@@ -1473,11 +1773,15 @@ async function generatePages() {
 
 
   const url =
-    URL.createObjectURL(blob);
+    URL.createObjectURL(
+      blob
+    );
 
 
   const download =
-    document.createElement("a");
+    document.createElement(
+      "a"
+    );
 
 
   download.href =
@@ -1489,20 +1793,31 @@ async function generatePages() {
     batch +
     "-" +
     regions.length +
-    "pages.zip";
+    "pages-with-sitemap.zip";
 
 
-  document.body.appendChild(download);
+  document.body.appendChild(
+    download
+  );
+
 
   download.click();
 
+
   download.remove();
 
-  URL.revokeObjectURL(url);
 
+  URL.revokeObjectURL(
+    url
+  );
+
+
+  /* 결과 표시 */
 
   const result =
-    document.getElementById("result");
+    document.getElementById(
+      "result"
+    );
 
 
   result.style.display =
@@ -1510,15 +1825,28 @@ async function generatePages() {
 
 
   result.innerHTML =
+
     "<strong>" +
     regions.length +
     "개 페이지 생성 완료</strong><br><br>" +
 
-    "모든 제목은 지역명으로 시작합니다.<br>" +
-    "'무료' 포함 키워드는 자동 제외되었습니다.<br>" +
-    "생성된 제목은 중복 방지 기록에 저장되었습니다.<br><br>" +
+    "기존 사이트맵 주소 : " +
+    existingUrls.length +
+    "개<br>" +
 
-    preview.join("<br><br>");
+    "이번 신규 주소 : " +
+    newPageUrls.length +
+    "개<br>" +
+
+    "새 사이트맵 총 주소 : " +
+    [...new Set(allUrls)].length +
+    "개<br><br>" +
+
+    "<strong>ZIP 안에 sitemap.xml도 포함되었습니다.</strong><br><br>" +
+
+    preview.join(
+      "<br><br>"
+    );
 
 }
 
