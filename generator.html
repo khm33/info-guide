@@ -12,7 +12,6 @@ content="서울 강남구 개인회생 신청자격과 조건, 소득과 채무 
 <meta name="robots" content="index, follow">
 
 <style>
-
 * {
   box-sizing: border-box;
 }
@@ -22,7 +21,6 @@ body {
   background: #f4f4f4;
   color: #252525;
   font-family: Arial, "Noto Sans KR", sans-serif;
-  line-height: 1.85;
   word-break: keep-all;
 }
 
@@ -31,7 +29,7 @@ body {
   max-width: 760px;
   margin: 0 auto;
   background: #ffffff;
-  padding: 32px 32px 55px;
+  padding: 30px 30px 55px;
 }
 
 .ad {
@@ -41,111 +39,115 @@ body {
   margin-bottom: 24px;
 }
 
-.thumbnail {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin: 0 auto 36px;
-}
-
-h1 {
-  font-size: 28px;
-  line-height: 1.55;
-  text-align: center;
-  margin: 0 0 40px;
-  color: #202020;
-}
-
-h2 {
-  font-size: 21px;
-  line-height: 1.55;
-  margin: 52px 0 22px;
-  padding: 0 0 10px 12px;
-  border-left: 4px solid #735b3a;
-  border-bottom: 1px solid #eeeeee;
-  color: #272727;
-}
-
-p {
-  font-size: 17px;
-  line-height: 1.9;
-  margin: 0 0 22px;
-  text-align: left;
-}
-
+.thumbnail,
 .content-image {
   display: block;
   width: 100%;
   height: auto;
-  margin: 8px auto 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.thumbnail {
+  margin-bottom: 34px;
+}
+
+.content-image {
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+
+h1 {
+  margin: 0 0 38px;
+  font-size: 28px;
+  line-height: 1.55;
+  text-align: center;
+  color: #202020;
+}
+
+h2 {
+  margin: 48px 0 20px;
+  padding-left: 12px;
+  border-left: 4px solid #735b3a;
+  font-size: 21px;
+  line-height: 1.55;
+  text-align: left;
+  color: #272727;
+}
+
+p {
+  margin: 0 0 24px;
+  font-size: 17px;
+  line-height: 1.9;
+  text-align: left;
 }
 
 .cta {
   width: 100%;
-  margin: 38px 0 48px;
-  text-align: center;
+  margin: 36px 0 44px;
 }
 
 .cta a {
   display: block;
   width: 100%;
+  padding: 18px 14px;
   background: #44362b;
   color: #ffffff;
+  text-align: center;
   text-decoration: none;
   font-size: 18px;
   font-weight: 700;
-  line-height: 1.5;
-  padding: 19px 15px;
+  line-height: 1.55;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
-.cta a:hover {
-  opacity: 0.9;
-}
-
 .point-box {
+  margin: 22px 0 30px;
+  padding: 22px 24px;
   background: #faf8f5;
   border: 1px solid #ebe5dc;
   border-radius: 8px;
-  padding: 22px 24px;
-  margin: 22px 0 30px;
+}
+
+.point-item {
+  margin-bottom: 22px;
+}
+
+.point-item:last-child {
+  margin-bottom: 0;
 }
 
 .point-title {
   display: block;
+  margin-bottom: 6px;
   font-size: 17px;
   font-weight: 700;
-  margin-bottom: 5px;
   color: #493b30;
 }
 
 .point-text {
   font-size: 16px;
-  line-height: 1.75;
-  margin-bottom: 19px;
-}
-
-.point-text:last-child {
-  margin-bottom: 0;
+  line-height: 1.8;
+  text-align: left;
 }
 
 .check-box {
+  margin: 24px 0 34px;
+  padding: 23px 24px;
   background: #f8f5f0;
   border: 1px solid #e6ddd2;
   border-radius: 9px;
-  padding: 24px 26px;
-  margin: 27px 0 35px;
 }
 
 .check {
   position: relative;
+  margin: 14px 0;
+  padding-left: 28px;
   font-size: 17px;
   font-weight: 600;
   line-height: 1.6;
   text-align: left;
-  padding-left: 28px;
-  margin: 14px 0;
 }
 
 .check::before {
@@ -158,18 +160,17 @@ p {
 }
 
 .lawyer {
-  text-align: center;
-  margin-top: 48px;
+  margin-top: 46px;
   padding-top: 24px;
   border-top: 1px solid #dddddd;
+  text-align: center;
   font-size: 14px;
   color: #666;
 }
 
 @media (max-width: 600px) {
-
   .container {
-    padding: 22px 18px 42px;
+    padding: 20px 17px 42px;
   }
 
   .ad {
@@ -177,35 +178,27 @@ p {
     margin-bottom: 18px;
   }
 
-  .thumbnail {
-    margin-bottom: 28px;
-  }
-
   h1 {
     font-size: 23px;
     line-height: 1.55;
-    margin-bottom: 32px;
+    margin-bottom: 30px;
   }
 
   h2 {
+    margin-top: 42px;
+    margin-bottom: 18px;
     font-size: 19px;
     line-height: 1.55;
-    margin-top: 44px;
-    margin-bottom: 19px;
   }
 
   p {
     font-size: 16px;
     line-height: 1.85;
-    margin-bottom: 20px;
-  }
-
-  .content-image {
-    margin-bottom: 25px;
+    margin-bottom: 22px;
   }
 
   .cta {
-    margin: 32px 0 42px;
+    margin: 31px 0 39px;
   }
 
   .cta a {
@@ -214,7 +207,7 @@ p {
   }
 
   .point-box {
-    padding: 19px 18px;
+    padding: 18px 17px;
   }
 
   .point-title {
@@ -226,14 +219,13 @@ p {
   }
 
   .check-box {
-    padding: 20px 19px;
+    padding: 19px 18px;
   }
 
   .check {
     font-size: 16px;
   }
 }
-
 </style>
 </head>
 
@@ -245,85 +237,79 @@ p {
 본 포스팅은 유료광고를 포함하고 있습니다.
 </div>
 
-
 <img
 src="https://info-guide.pages.dev/thumbnail.png.png"
 alt="서울 강남구 개인회생 상담 안내"
 class="thumbnail">
-
 
 <h1>
 서울 강남구 개인회생변호사<br>
 개인회생상담 신청자격 알아보기
 </h1>
 
-
 <p>
-매달 대출과 카드대금을 갚고 있는데도
-원금은 좀처럼 줄지 않고
-이자 부담만 계속 커지고 있나요?
+매달 대출과 카드대금을<br>
+꾸준히 갚고 있는데도<br>
+원금은 좀처럼 줄지 않고<br>
+이자 부담만 커지고 있나요?
 </p>
 
 <p>
-처음에는 조금만 더 버티면
-상황이 나아질 거라 생각하지만
-생활비까지 부족해지고
-다른 대출로 기존 채무를 막는 상황이
+처음에는 조금만 더 버티면<br>
+괜찮아질 거라 생각하지만<br>
+생활비까지 부족해지고<br>
+다른 대출로 기존 채무를 막는 상황이<br>
 반복되기도 합니다.
 </p>
 
 <p>
-연체가 시작되거나
-채권자의 독촉과 추심까지 이어지면
-경제적인 부담뿐만 아니라
+연체가 시작되거나<br>
+채권자의 독촉과 추심까지 이어지면<br>
+경제적인 부담뿐 아니라<br>
 일상생활까지 영향을 받을 수 있습니다.
 </p>
 
 <p>
-서울 강남구에서 개인회생을 알아보고 있다면
-현재의 소득과 재산, 전체 채무 상황을 확인하고
-개인회생 신청요건에 해당하는지
-먼저 살펴보는 것이 중요합니다.
+서울 강남구에서 개인회생을 알아보고 있다면<br>
+현재의 소득과 재산,<br>
+전체 채무 상황을 먼저 확인하고<br>
+신청요건에 해당하는지<br>
+살펴보는 것이 중요합니다.
 </p>
 
-
 <div class="cta">
-
 <a
 href="https://replyalba.com/intros/law_seoyul/"
 target="_blank"
 rel="noopener noreferrer">
-
 법무법인 서앤율 개인회생 1:1 상담 신청하기 [클릭]
-
 </a>
-
 </div>
-
 
 <h2>개인회생은 어떤 제도인가요?</h2>
 
 <p>
-개인회생은 일정한 수입이 있지만
-현재의 채무를 정상적으로 감당하기 어려운 경우
-법원의 절차를 통해 채무를 조정하고
-경제적인 재기를 준비할 수 있도록
+개인회생은 일정한 수입이 있지만<br>
+현재의 채무를 정상적으로<br>
+감당하기 어려운 경우<br>
+법원의 절차를 통해 채무를 조정하고<br>
+경제적인 재기를 준비할 수 있도록<br>
 마련된 제도입니다.
 </p>
 
 <p>
-신청만으로 채무가 조정되는 것은 아니며
-소득과 재산, 채무 규모 등을 확인하고
+신청만으로 채무가 조정되는 것은 아니며<br>
+소득과 재산, 채무 규모 등을 확인하고<br>
 법원의 심사를 거쳐야 합니다.
 </p>
 
 <p>
-변제계획이 인가된 후
-정해진 기간 동안 이를 이행하면
-관련 요건과 절차에 따라
-남은 채무에 대한 면책을 받을 수 있습니다.
+변제계획이 인가된 후<br>
+정해진 기간 동안 이를 이행하면<br>
+관련 요건과 절차에 따라<br>
+남은 채무에 대한 면책을<br>
+받을 수 있습니다.
 </p>
-
 
 <h2>개인회생 자격조건을 확인해 보세요</h2>
 
@@ -332,56 +318,60 @@ src="https://info-guide.pages.dev/qualification.png.png"
 alt="서울 강남구 개인회생 신청자격 안내"
 class="content-image">
 
-
 <p>
-개인회생을 알아보고 있다면
-먼저 기본적인 신청요건부터
+개인회생을 알아보고 있다면<br>
+먼저 기본적인 신청요건부터<br>
 확인해 보는 것이 좋습니다.
 </p>
 
-
 <div class="point-box">
 
+<div class="point-item">
 <span class="point-title">✓ 지속적인 소득</span>
 <div class="point-text">
-급여나 사업소득 등 계속적 또는 반복적으로
+급여나 사업소득 등<br>
+계속적 또는 반복적으로<br>
 얻을 가능성이 있는 수입이 필요합니다.
 </div>
+</div>
 
-
+<div class="point-item">
 <span class="point-title">✓ 채무 상환이 어려운 상황</span>
 <div class="point-text">
-현재 소득과 재산 등을 고려했을 때
-채무를 정상적으로 갚기 어려운 상황인지
+현재 소득과 재산 등을 고려했을 때<br>
+채무를 정상적으로 갚기 어려운 상황인지<br>
 확인하게 됩니다.
 </div>
+</div>
 
-
+<div class="point-item">
 <span class="point-title">✓ 채무 한도</span>
 <div class="point-text">
-무담보채무는 10억 원 이하,
-담보부채무는 15억 원 이하인 경우
+무담보채무는 10억 원 이하,<br>
+담보부채무는 15억 원 이하인 경우<br>
 개인회생 신청을 검토할 수 있습니다.
 </div>
+</div>
 
-
+<div class="point-item">
 <span class="point-title">✓ 보유 재산</span>
 <div class="point-text">
-부동산과 자동차, 예금, 보험 등
-현재 가지고 있는 재산도
+부동산과 자동차, 예금, 보험 등<br>
+현재 가지고 있는 재산도<br>
 함께 확인해야 합니다.
 </div>
+</div>
 
-
+<div class="point-item">
 <span class="point-title">✓ 과거 면책 여부</span>
 <div class="point-text">
-이전에 개인회생이나 파산 등을 통해
-면책을 받은 경험이 있다면
+이전에 개인회생이나 파산 등을 통해<br>
+면책을 받은 경험이 있다면<br>
 관련 시점을 확인할 필요가 있습니다.
 </div>
-
 </div>
 
+</div>
 
 <h2>직업이 달라도 신청을 검토할 수 있습니다</h2>
 
@@ -390,27 +380,27 @@ src="https://info-guide.pages.dev/job-types.png.png"
 alt="직업별 개인회생 신청 안내"
 class="content-image">
 
-
 <p>
-개인회생에서는 직업의 명칭 자체보다
-계속적 또는 반복적으로
-소득을 얻을 가능성이 있는지가 중요합니다.
+개인회생에서는 직업의 명칭 자체보다<br>
+계속적 또는 반복적으로<br>
+소득을 얻을 가능성이 있는지가<br>
+중요한 부분입니다.
 </p>
 
 <p>
-회사원이나 자영업자는 물론
-계약직, 프리랜서, 일용직,
-아르바이트 등도 소득을 확인할 수 있다면
+회사원이나 자영업자는 물론<br>
+계약직, 프리랜서, 일용직,<br>
+아르바이트 등도<br>
+소득을 확인할 수 있다면<br>
 신청 가능성을 검토할 수 있습니다.
 </p>
 
 <p>
-매월 수입이 일정하지 않은 경우에도
-소득이 발생하고 있음을 확인할 수 있는
-자료를 준비해 현재 상황을
-살펴보는 것이 좋습니다.
+매월 수입이 일정하지 않더라도<br>
+소득이 발생하고 있음을 확인할 수 있는<br>
+자료를 준비해<br>
+현재 상황을 살펴보는 것이 좋습니다.
 </p>
-
 
 <h2>개인마다 준비해야 하는 내용이 다릅니다</h2>
 
@@ -419,29 +409,27 @@ src="https://info-guide.pages.dev/legal-info.png.png"
 alt="개인회생 파산 법률정보 안내"
 class="content-image">
 
-
 <p>
-같은 금액의 채무가 있다고 하더라도
-월 소득과 보유 재산, 부양가족,
-채무가 발생하게 된 과정 등은
+같은 금액의 채무가 있다고 하더라도<br>
+월 소득과 보유 재산,<br>
+부양가족과 채무 발생 경위 등은<br>
 개인마다 다를 수 있습니다.
 </p>
 
 <p>
-주식이나 가상자산 투자,
-도박 등으로 채무가 증가한 경우에는
-구체적인 상황에 따라
-추가적인 소명이나 자료가
+주식이나 가상자산 투자,<br>
+도박 등으로 채무가 증가한 경우에는<br>
+구체적인 상황에 따라<br>
+추가적인 소명이나 자료가<br>
 요구될 수도 있습니다.
 </p>
 
 <p>
-따라서 다른 사람의 사례만 보고
-신청 가능 여부를 판단하기보다
-본인의 상황에서 어떤 자료와 절차가 필요한지
+따라서 다른 사람의 사례만 보고<br>
+신청 가능 여부를 판단하기보다는<br>
+본인의 상황에서 어떤 자료와 절차가 필요한지<br>
 확인하는 것이 중요합니다.
 </p>
-
 
 <h2>법무법인 서앤율의 강점</h2>
 
@@ -450,63 +438,37 @@ src="https://info-guide.pages.dev/seoyul-lawyer.png.png"
 alt="법무법인 서앤율 개인회생 파산 안내"
 class="content-image">
 
-
 <p>
-개인회생은 단순히 신청서를 작성하고
+개인회생은 단순히 신청서를 작성하고<br>
 접수하는 것에서 끝나는 절차가 아닙니다.
 </p>
 
 <p>
-채무와 재산, 소득에 관한 자료를 준비하고
-현재 상황에 맞는 변제계획을 검토해야 하며
-법원의 심사와 보정 과정에서
+채무와 재산, 소득에 관한 자료를 준비하고<br>
+현재 상황에 맞는 변제계획을 검토해야 하며<br>
+법원의 심사와 보정 과정에서<br>
 추가적인 확인이 필요한 경우도 있습니다.
 </p>
 
 <p>
-법무법인 서앤율에서는
-개인회생·파산 관련 상담을 통해
-현재의 채무와 소득 상황을 확인하고
+법무법인 서앤율에서는<br>
+개인회생·파산 관련 상담을 통해<br>
+현재의 채무와 소득 상황을 확인하고<br>
 진행 과정에서 필요한 내용을 안내합니다.
 </p>
 
-
 <div class="check-box">
 
-<div class="check">
-변호사가 직접 사건 관리
-</div>
-
-<div class="check">
-신청서 접수 및 보정 과정 확인
-</div>
-
-<div class="check">
-채권자집회 등 진행 과정 확인
-</div>
-
-<div class="check">
-변제계획 인가 및 면책 과정 확인
-</div>
-
-<div class="check">
-전국 상담 및 진행 가능
-</div>
-
-<div class="check">
-수임료 분납 가능
-</div>
-
-<div class="check">
-사건 진행상황 확인
-</div>
-
-<div class="check">
-1:1 비밀상담
-</div>
+<div class="check">변호사가 직접 사건 관리</div>
+<div class="check">신청서 접수 및 보정 과정 확인</div>
+<div class="check">채권자집회 등 진행 과정 확인</div>
+<div class="check">변제계획 인가 및 면책 과정 확인</div>
+<div class="check">전국 상담 및 진행 가능</div>
+<div class="check">수임료 분납 가능</div>
+<div class="check">사건 진행상황 확인</div>
+<div class="check">1:1 비밀상담</div>
 
 </div>
-
 
 <h2>현재 상황부터 확인해 보세요</h2>
 
@@ -515,53 +477,47 @@ src="https://info-guide.pages.dev/seoyul-benefits.png.png"
 alt="법무법인 서앤율 개인회생 상담 안내"
 class="content-image">
 
-
 <p>
-채무가 많다고 해서
-모든 사람에게 같은 방법이
+채무가 많다고 해서<br>
+모든 사람에게 같은 방법이<br>
 적용되는 것은 아닙니다.
 </p>
 
 <p>
-개인회생을 검토할 수 있는 경우도 있고
-현재의 소득과 재산, 채무 상황에 따라
+개인회생을 검토할 수 있는 경우도 있고<br>
+현재의 소득과 재산,<br>
+채무 상황에 따라<br>
 다른 방법을 함께 살펴봐야 할 수도 있습니다.
 </p>
 
 <p>
-혼자 가능 여부를 판단하기보다는
-현재 가지고 있는 채무와 소득,
-재산을 먼저 정리하고
-본인에게 적합한 방법을
+혼자 가능 여부를 판단하기보다는<br>
+현재 가지고 있는 채무와 소득,<br>
+재산을 먼저 정리하고<br>
+본인에게 적합한 방법을<br>
 확인해 보는 것이 중요합니다.
 </p>
 
 <p>
-채무 부담으로 고민하고 있다면
-법무법인 서앤율과 상담을 통해
-개인회생 신청 가능 여부와
-필요한 준비사항을 확인해 보시기 바랍니다.
+채무 부담으로 고민하고 있다면<br>
+법무법인 서앤율과 상담을 통해<br>
+개인회생 신청 가능 여부와<br>
+필요한 준비사항을<br>
+확인해 보시기 바랍니다.
 </p>
 
-
 <div class="cta">
-
 <a
 href="https://replyalba.com/intros/law_seoyul/"
 target="_blank"
 rel="noopener noreferrer">
-
 법무법인 서앤율 개인회생 1:1 상담 신청하기 [클릭]
-
 </a>
-
 </div>
-
 
 <div class="lawyer">
 광고책임 변호사 구제준
 </div>
-
 
 </div>
 
