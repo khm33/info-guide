@@ -4,133 +4,125 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>개인회생 지역별 50개 자동생성기</title>
+<title>Personal Rehabilitation 250 Page Generator</title>
 
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <style>
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  background: #f4f4f4;
-  color: #222;
-  font-family: Arial, "Noto Sans KR", sans-serif;
+    margin: 0;
+    background: #f4f4f4;
+    color: #222;
+    font-family: Arial, "Noto Sans KR", sans-serif;
 }
 
 .wrap {
-  width: 100%;
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 35px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 35px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.08);
 }
 
 h1 {
-  margin-top: 0;
-  font-size: 28px;
+    margin-top: 0;
+    font-size: 28px;
 }
 
 .guide {
-  color: #666;
-  line-height: 1.8;
-  margin-bottom: 30px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 30px;
 }
 
 label {
-  display: block;
-  margin: 25px 0 10px;
-  font-size: 17px;
-  font-weight: 700;
+    display: block;
+    margin: 25px 0 10px;
+    font-size: 17px;
+    font-weight: 700;
 }
 
 textarea,
 input {
-  width: 100%;
-  padding: 14px;
-  border: 1px solid #ccc;
-  border-radius: 7px;
-  font-size: 15px;
-  line-height: 1.6;
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+    line-height: 1.6;
 }
 
 textarea {
-  min-height: 180px;
-  resize: vertical;
-}
-
-#keywords {
-  min-height: 150px;
+    min-height: 220px;
+    resize: vertical;
 }
 
 button {
-  width: 100%;
-  margin-top: 18px;
-  padding: 17px;
-  border: 0;
-  border-radius: 8px;
-  background: #44362b;
-  color: #fff;
-  font-size: 17px;
-  font-weight: 700;
-  cursor: pointer;
+    width: 100%;
+    margin-top: 18px;
+    padding: 17px;
+    border: 0;
+    border-radius: 8px;
+    background: #44362b;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 button:hover {
-  opacity: .9;
+    opacity: .9;
 }
 
 .secondary {
-  background: #777;
+    background: #777;
 }
 
 .danger {
-  background: #9b4949;
+    background: #9b4949;
 }
 
-.history {
-  margin-top: 28px;
-  padding: 17px;
-  border-radius: 8px;
-  background: #f8f5f0;
-  line-height: 1.8;
-  font-size: 14px;
+.history,
+.result,
+.notice {
+    margin-top: 25px;
+    padding: 17px;
+    border-radius: 8px;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+.history,
+.result {
+    background: #f8f5f0;
 }
 
 .result {
-  display: none;
-  margin-top: 30px;
-  padding: 20px;
-  background: #f8f5f0;
-  border-radius: 8px;
-  line-height: 1.8;
+    display: none;
 }
 
 .notice {
-  margin-top: 25px;
-  padding: 15px;
-  background: #fff8e9;
-  border: 1px solid #ead8af;
-  border-radius: 7px;
-  color: #555;
-  font-size: 14px;
-  line-height: 1.7;
+    background: #fff8e9;
+    border: 1px solid #ead8af;
+    color: #555;
 }
 
 @media(max-width:600px) {
-  .wrap {
-    margin: 0;
-    border-radius: 0;
-    padding: 22px 17px 40px;
-  }
+    .wrap {
+        margin: 0;
+        border-radius: 0;
+        padding: 22px 17px 40px;
+    }
 
-  h1 {
-    font-size: 23px;
-  }
+    h1 {
+        font-size: 23px;
+    }
 }
 </style>
 </head>
@@ -139,86 +131,289 @@ button:hover {
 
 <div class="wrap">
 
-<h1>개인회생 지역별 50개 글 자동생성기</h1>
+<h1>Personal Rehabilitation 250 Page Generator</h1>
 
 <div class="guide">
-지역을 한 줄에 하나씩 입력하고<br>
-제목에 사용할 개인회생 키워드를 입력하세요.<br>
-최대 50개의 HTML 페이지를 한 번에 생성합니다.<br><br>
-
-제목 순서는 항상<br>
-<strong>지역 + 개인회생변호사 + 키워드 2개 + 마무리 문구</strong><br>
-형태로 생성됩니다.<br><br>
-
-기존 사이트맵에 오늘 만든 글 주소가 자동으로 추가되어<br>
-새로운 <strong>sitemap.xml</strong>도 함께 생성됩니다.
+Generate up to 250 regional personal rehabilitation pages.<br>
+Title format: Region + Personal Rehabilitation Lawyer + 2 Keywords<br>
+The sitemap uses final URLs without the .html extension.
 </div>
 
+<label>1. Regions</label>
 
-<label>① 지역명</label>
-
-<textarea id="regions" placeholder="서울 종로구
+<textarea id="regions">
+서울 종로구
 서울 중구
 서울 용산구
 서울 성동구
-서울 광진구"></textarea>
+서울 광진구
+서울 동대문구
+서울 중랑구
+서울 성북구
+서울 강북구
+서울 도봉구
+서울 노원구
+서울 은평구
+서울 서대문구
+서울 마포구
+서울 양천구
+서울 강서구
+서울 구로구
+서울 금천구
+서울 영등포구
+서울 동작구
+서울 관악구
+서울 서초구
+서울 강남구
+서울 송파구
+서울 강동구
+부산
+부산 중구
+부산 서구
+부산 동구
+부산 영도구
+부산 부산진구
+부산 동래구
+부산 남구
+부산 북구
+부산 해운대구
+부산 사하구
+부산 금정구
+부산 연제구
+부산 수영구
+부산 강서구
+부산 사상구
+부산 기장군
+인천
+인천 중구
+인천 동구
+인천 미추홀구
+인천 연수구
+인천 남동구
+인천 부평구
+인천 계양구
+인천 서구
+대전
+대전 동구
+대전 중구
+대전 서구
+대전 유성구
+대전 대덕구
+대구
+대구 중구
+대구 동구
+대구 서구
+대구남구
+대구 북구
+대구 수성구
+대구 달서구
+대구 달성군
+울산
+울산 중구
+울산 남구
+울산 동구
+울산 북구
+울산 울주군
+광주
+광주 동구
+광주 서구
+광주 남구
+광주 북구
+광주 광산구
+수원
+성남
+용인
+분당
+의정부
+안양
+부천
+광명
+평택
+동두천
+안산
+고양
+과천
+구리
+남양주
+오산
+시흥
+군포
+의왕
+하남
+파주
+이천
+김포
+안성
+화성
+광주
+양주
+포천
+여주
+가평
+양평
+용인 처인구
+용인 기흥구
+용인 수지구
+수원 장안구
+수원 권선구
+수원 팔달구
+수원 영통구
+성남 수정구
+성남 중원구
+성남 분당구
+안산 단원구
+안산 상록구
+고양 덕양구
+고양 일산동구
+고양 일산서구
+안양 만안구
+안양 동안구
+부천 원미구
+부천 소사구
+부천 오정구
+천안
+천안서북구
+천안동남구
+청주
+공주
+아산
+서산
+논산
+당진
+세종
+충주
+단양
+청주 상당구
+청주 서원구
+청주 흥덕구
+청주청원구
+목포
+여수
+순천
+나주
+광양
+전주
+군산
+익산
+전주 완산구
+전주덕진구
+강원도
+춘천
+원주
+강릉
+동해
+창원
+진주
+진해
+통영
+사천
+김해
+거제
+양산
+창원 의창구
+창원 성산구
+창원 마산합포구
+창원 마산회원구
+창원 진해구
+경주
+김천
+안동
+구미
+경산
+포항 남구
+포항 북구
+</textarea>
 
 
-<label>② 제목 키워드</label>
+<label>2. Keywords</label>
 
-<textarea id="keywords" placeholder="개인회생상담
-개인회생신청
+<textarea id="keywords">
+개인회생
 개인회생신청자격
-개인회생자격
+개인회생신청
+회생법률상담
+개인회생비용
+개인회생빠른법률상담
 개인회생절차
-채무조정
-개인회생법률상담
-개인회생상담문의
+개인회생변호사
+개인회생조건
+개인회생기간
+개인회생상담
 개인회생신청방법
-개인회생채무조정"></textarea>
+개인회생법률사무소
+개인회생변호사비용
+개인회생면책
+개인회생자격
+개인회생인가
+개인회생서류
+개인회생신청비용
+개인회생단점
+개인회생장점
+개인회생변제금
+개인회생변제기간
+개인회생변제금계산
+개인회생최저생계비
+개인회생채무
+개인회생채무조정
+개인회생금지명령
+개인회생중지명령
+개인회생기각
+개인회생재신청
+개인회생면책기간
+개인회생통장압류
+개인회생급여압류
+개인회생채권추심
+개인회생상담센터
+개인회생법률상담
+개인회생빠른상담
+개인회생변호사상담
+개인회생문의
+개인회생상담전화
+</textarea>
 
 
-<label>③ 상담 링크</label>
+<label>3. Number of Pages</label>
 
 <input
-id="consultLink"
-value="https://replyalba.com/intros/law_seoyul/">
+    id="pageCount"
+    type="number"
+    min="1"
+    max="500"
+    value="250"
+>
+
+
+<label>4. Consultation Link</label>
+
+<input
+    id="consultLink"
+    value="https://replyalba.com/pt/C94Qy0osJB"
+>
 
 
 <button onclick="generatePages()">
-50개 글 + 사이트맵 생성하기
+Generate Pages + Sitemap ZIP
 </button>
 
 
 <div class="history">
-현재 저장된 기존 제목 :
-<strong id="historyCount">0</strong>개
+Saved titles:
+<strong id="historyCount">0</strong>
 </div>
 
-
 <button class="secondary" onclick="downloadHistory()">
-사용한 제목 기록 백업하기
+Download Title History
 </button>
-
 
 <button class="danger" onclick="resetHistory()">
-사용한 제목 기록 초기화
+Reset Title History
 </button>
-
 
 <div class="result" id="result"></div>
 
-
 <div class="notice">
-ZIP 안에는 새 HTML 글들과
-<strong>sitemap.xml</strong>이 함께 들어갑니다.<br><br>
-
-새 sitemap.xml에는 기존 사이트맵 주소를 유지하면서
-이번에 만든 새 글 주소를 추가합니다.<br><br>
-
-기존 사이트맵을 불러오지 못하면
-잘못된 사이트맵으로 덮어쓰지 않도록
-글 생성을 중단하도록 설정되어 있습니다.
+The ZIP file contains all newly generated HTML pages and sitemap.xml.<br>
+Existing sitemap URLs are preserved and normalized without .html.
 </div>
 
 </div>
@@ -226,998 +421,760 @@ ZIP 안에는 새 HTML 글들과
 
 <script>
 
-/* =========================
-   기본 설정
-========================= */
+const SITE_URL = "https://info-guide.pages.dev";
+const SITEMAP_URL = SITE_URL + "/sitemap.xml";
+const HISTORY_KEY = "personal_rehabilitation_titles_v7";
 
-const SITE_URL =
-  "https://info-guide.pages.dev";
-
-const SITEMAP_URL =
-  SITE_URL + "/sitemap.xml";
-
-
-/* =========================
-   제목 마무리
-========================= */
-
-const titleEndings = [
-  "해결방법",
-  "확인사항",
-  "상담방법",
-  "문의방법",
-  "신청방법",
-  "준비사항",
-  "진행방법",
-  "알아보는 이유",
-  "신청 전 확인사항",
-  "상담 전 확인사항",
-  "신청 전 체크사항",
-  "알아둘 점",
-  "자격조건 확인",
-  "진행 전 확인사항",
-  "채무조정 방법",
-  "신청할 때 확인할 점",
-  "상담 전 알아둘 내용",
-  "신청 준비방법",
-  "절차 확인방법",
-  "채무 상담방법",
-  "신청자격 알아보기",
-  "진행과정 알아보기",
-  "상담 전 체크사항",
-  "채무조정 확인사항",
-  "절차와 준비사항",
-  "신청 시 확인할 내용",
-  "진행 전에 알아둘 점",
-  "상담이 필요한 이유",
-  "신청조건 알아보기",
-  "채무 해결 알아보기"
-];
-
-
-/* =========================
-   도입부
-========================= */
 
 const intros = [
 
-`매달 대출과 카드대금을
-꾸준히 갚고 있는데도
-원금은 좀처럼 줄지 않고
-이자 부담만 커지고 있나요?
+`대출과 카드대금 등 여러 채무를 계속 상환하고 있지만
+매달 납부해야 하는 금액이 부담되고 있다면
+현재의 채무 구조부터 다시 확인해 볼 필요가 있습니다.
 
-처음에는 조금만 더 버티면
-상황이 나아질 거라 생각하지만
-생활비까지 부족해지고
-다른 대출로 기존 채무를 막는 상황이
-반복되기도 합니다.`,
+연체가 시작되거나 생활비까지 부족해지는 상황이라면
+개인회생을 통해 조정할 수 있는 범위가 있는지
+차분하게 살펴보는 것이 중요합니다.`,
 
-`꾸준히 소득이 발생하고 있지만
-매달 갚아야 하는 채무 때문에
-생활비까지 부담되고 있다면
-현재의 상환 상황을
-다시 살펴볼 필요가 있습니다.
+`채무를 계속 갚고 있음에도
+이자 부담으로 인해 원금이 쉽게 줄지 않는다면
+현재 상환 방식을 다시 살펴볼 필요가 있습니다.
 
-연체나 채권추심까지 이어지고 있다면
-혼자 고민하기보다
-이용할 수 있는 채무조정 절차가 있는지
-확인해 보는 것도 방법입니다.`,
+상환을 위해 새로운 채무가 생기는 상황이 반복된다면
+전체 채무와 소득 및 재산을 정리하고
+개인회생 신청 가능성을 확인해 볼 수 있습니다.`,
 
-`대출 원금과 이자가 계속 쌓이면서
-매달 돌아오는 상환일이
-큰 부담으로 느껴질 수 있습니다.
+`예상하지 못했던 지출과 채무가 겹치면서
+기존 방식으로 상환을 계속하기 어려워지는 경우가 있습니다.
 
-소득만으로 채무를 감당하기 어려워지고
-생활비까지 부족한 상황이 이어진다면
-현재 채무와 재산,
-소득 상태를 함께 확인해 보는 것이 중요합니다.`,
+채무 부담이 장기간 이어지고 있다면
+현재 경제 상황을 구체적으로 파악한 뒤
+법원을 통한 채무조정 절차를 검토해 볼 수 있습니다.`,
 
-`열심히 채무를 상환하고 있는데도
-이자 때문에 원금이 줄지 않고
-경제적인 부담이 계속되고 있나요?
+`여러 금융기관에 채무가 나뉘어 있다면
+매달 납부해야 할 금액과 상환일을 관리하는 것만으로도
+상당한 부담을 느낄 수 있습니다.
 
-기존 채무를 갚기 위해
-새로운 대출을 이용하는 상황까지 이어진다면
-개인회생 신청요건에 해당하는지
-살펴볼 필요가 있습니다.`,
+현재 수입으로 정상적인 상환이 어렵다면
+개인회생의 신청 조건과 진행 절차를
+확인해 보는 것이 필요합니다.`,
 
-`처음에는 충분히 갚을 수 있을 거라
-생각했던 채무도
-예상하지 못한 상황이 반복되면서
-감당하기 어려워질 수 있습니다.
+`채무 문제는 단순히 빚의 총액만으로
+판단하기 어려운 부분이 있습니다.
 
-현재 소득으로 정상적인 상환이 어렵다면
-무작정 미루기보다는
-개인회생 등 이용할 수 있는 절차가 있는지
-확인해 보는 것이 좋습니다.`,
+현재 소득과 재산, 필요한 생활비,
+채무가 발생하게 된 과정 등을 함께 정리하고
+개인회생 가능 여부를 살펴볼 필요가 있습니다.`,
 
-`원금과 이자를 갚느라
-매달 생활비까지 부족해지고 있다면
-채무 문제가 일상생활까지
-영향을 주게 될 수 있습니다.
+`연체가 시작되고 채권자의 독촉이나 추심이 이어진다면
+경제적인 부담뿐 아니라 일상생활에도
+영향을 받을 수 있습니다.
 
-연체가 길어지기 전에
-현재의 채무 규모와 소득을 정리하고
-개인회생을 검토할 수 있는 상황인지
-확인해 보는 것이 중요합니다.`,
-
-`매월 정해진 소득은 들어오지만
-대출과 카드대금 상환 후에는
-생활비조차 부족한 상황이
-이어질 수 있습니다.
-
-이런 상황이 반복된다면
-현재 상환방식만 유지하기보다는
-채무를 조정할 수 있는 제도가 있는지
-확인해 볼 필요가 있습니다.`,
-
-`여러 곳의 채무를 동시에 갚다 보면
-매월 상환금이 커지면서
-경제적인 부담이 더 커질 수 있습니다.
-
-현재 소득만으로 전체 채무를
-정상적으로 감당하기 어렵다면
-개인회생 신청 가능 여부를
-살펴보는 것도 방법입니다.`,
-
-`대출을 갚기 위해 또 다른 대출을 이용하거나
-카드대금을 돌려막는 상황이 반복되면
-채무 규모가 더 커질 수 있습니다.
-
-상환이 어렵다고 느껴지는 시점에는
-현재 소득과 재산,
-전체 채무 상태를 먼저 확인하는 것이 중요합니다.`,
-
-`채무가 늘어난 상황에서는
-어디서부터 해결해야 할지
-막막하게 느껴질 수 있습니다.
-
-하지만 개인마다 소득과 재산,
-채무 규모가 다른 만큼
-현재 상황에 맞는 절차가 있는지
-차근차근 확인해 볼 필요가 있습니다.`
+개인회생을 알아보고 있다면
+신청자격과 변제계획, 준비서류 등을
+현재 상황에 맞게 확인하는 과정이 필요합니다.`
 
 ];
 
-
-/* =========================
-   개인회생 설명
-========================= */
 
 const explanations = [
 
-`개인회생은 일정한 수입이 있지만
-현재의 채무를 정상적으로
-감당하기 어려운 경우
-법원의 절차를 통해 채무를 조정하고
-경제적인 재기를 준비할 수 있도록
-마련된 제도입니다.`,
+`개인회생은 일정한 요건을 갖춘 채무자가
+법원의 절차를 통해 변제계획을 마련하고
+정해진 기간 동안 이를 이행한 뒤
+남아 있는 채무에 대한 면책을 검토받는 제도입니다.`,
 
-`개인회생은 계속적 또는 반복적으로
-수입을 얻을 가능성이 있지만
-현재 채무를 정상적으로 갚기 어려운 경우
-법원의 절차를 통해
-채무조정을 검토할 수 있는 제도입니다.`,
+`개인회생은 현재 가지고 있는 채무를
+정상적으로 감당하기 어려운 상황에서
+소득과 재산 및 채무 규모 등을 바탕으로
+법원의 심사를 거쳐 채무조정을 진행하는 절차입니다.`,
 
-`소득활동을 하고 있지만
-현재 가지고 있는 채무 규모 때문에
-정상적인 상환이 어려운 경우에는
-개인회생 절차를 통해
-채무조정 가능성을 살펴볼 수 있습니다.`,
+`개인회생은 단순히 신청서를 제출하는 것으로
+모든 과정이 끝나는 것은 아닙니다.
 
-`개인회생은 현재 소득을 바탕으로
-일정한 변제계획을 마련하고
-법원의 심사를 통해
-채무를 조정하는 절차입니다.`,
+채무와 재산 및 소득 관련 자료를 확인하고
+변제계획과 법원의 보정 절차 등을
+순서에 따라 진행하게 됩니다.`,
 
-`계속적인 수입은 발생하고 있지만
-현재 채무를 정상적인 방법으로
-상환하기 어려운 경우
-개인회생 제도를 검토할 수 있습니다.`
+`개인회생 절차에서는 현재의 경제 상황을 법원에 소명하고
+일정한 변제계획에 따라 채무를 상환한 뒤
+관련 요건을 충족하는 경우
+면책 절차를 검토할 수 있습니다.`
 
 ];
 
 
-/* =========================
-   직업 설명
-========================= */
+const requirementTexts = [
 
-const jobTexts = [
+`신청 가능 여부를 확인할 때에는
+현재 발생하고 있는 소득과 전체 채무,
+보유하고 있는 재산 등을 함께 살펴봐야 합니다.
 
-`개인회생에서는 직업의 명칭 자체보다
-계속적 또는 반복적으로
-소득을 얻을 가능성이 있는지가
-중요한 부분입니다.
+같은 규모의 채무가 있더라도
+개인의 소득과 생활비 및 재산 상황이 다르기 때문에
+구체적인 조건을 기준으로 확인하는 것이 중요합니다.`,
 
-회사원이나 자영업자는 물론
-계약직, 프리랜서, 일용직,
-아르바이트 등도
-소득을 확인할 수 있다면
-신청 가능성을 검토할 수 있습니다.`,
+`개인회생 신청자격은
+한 가지 조건만으로 결정되는 것은 아닙니다.
 
-`정규직이 아니라는 이유만으로
-개인회생을 미리 포기할 필요는 없습니다.
+소득의 지속 가능성과 채무 규모,
+현재 보유한 재산과 상환이 어려운 정도 등을
+종합적으로 확인하게 됩니다.`,
 
-계약직이나 프리랜서,
-일용직과 아르바이트 등도
-계속적인 소득을 확인할 수 있다면
-신청요건을 살펴볼 수 있습니다.`,
+`개인회생을 준비하기 전에는
+채권자별 채무금액과 보유하고 있는 재산,
+최근 소득 내역 등을 먼저 정리해 두는 것이 좋습니다.
 
-`개인회생 신청 여부를 판단할 때는
-직업 이름만 확인하는 것이 아니라
-실제로 소득이 발생하고 있는지
-함께 살펴보게 됩니다.
+사건의 내용에 따라
+추가적인 자료나 설명이 필요한 경우도 있습니다.`,
 
-수입이 일정하지 않은 경우에도
-소득을 확인할 수 있는 자료를 준비해
-현재 상황을 검토할 수 있습니다.`,
+`개인회생을 검토할 때에는
+현재 채무가 얼마나 있는지만 확인하는 것이 아니라
+앞으로 변제계획을 이행할 수 있는지도 함께 살펴봅니다.
 
-`회사에 근무하고 있지 않더라도
-반복적인 소득이 발생하고 있다면
-개인회생 신청 가능 여부를
-살펴볼 수 있습니다.
-
-소득 형태에 따라
-준비해야 하는 자료에는
-차이가 있을 수 있습니다.`,
-
-`직장인뿐 아니라
-자영업자나 프리랜서처럼
-수입이 일정하지 않은 경우에도
-실제 소득 내역을 확인해
-개인회생 요건을 검토할 수 있습니다.`
+현재 재산과 채무의 관계 역시
+확인해야 할 중요한 부분이 될 수 있습니다.`
 
 ];
 
 
-/* =========================
-   준비사항
-========================= */
+const processTexts = [
+
+`절차는 사건의 구체적인 내용에 따라 차이가 있지만
+일반적으로 신청 준비와 법원 접수,
+보정 절차와 변제계획 심사,
+인가 등의 과정을 거치게 됩니다.
+
+진행 과정에서 추가적인 자료를 요구받을 수 있으므로
+제출 내용을 꼼꼼하게 확인하는 것이 필요합니다.`,
+
+`개인회생 신청 이후에는
+법원에서 제출된 자료를 검토하게 됩니다.
+
+필요한 경우 보정명령이나 보정권고 등을 통해
+추가 자료나 설명을 요구할 수 있기 때문에
+처음부터 채무와 재산 및 소득 내용을
+정확하게 정리하는 것이 중요합니다.`,
+
+`개인회생은 신청 단계뿐 아니라
+인가 이후 변제계획을 이행하는 과정까지 이어집니다.
+
+변제금이나 변제기간 등은
+각 사건의 구체적인 조건에 따라 달라질 수 있으므로
+본인의 상황을 기준으로 확인할 필요가 있습니다.`,
+
+`개인회생 신청 과정에서
+금지명령이나 중지명령을 함께 검토하는 경우도 있습니다.
+
+다만 모든 사건에서 동일한 결과가 나오는 것은 아니므로
+현재 추심이나 압류 상황이 있다면
+필요한 대응 방법을 확인해 보는 것이 좋습니다.`
+
+];
+
 
 const prepareTexts = [
 
-`같은 금액의 채무가 있다고 하더라도
-월 소득과 보유 재산,
-부양가족과 채무 발생 경위 등은
-개인마다 다를 수 있습니다.
+`개인회생을 준비할 때에는
+채무가 증가하게 된 경위와 채권자별 채무금액,
+소득과 재산 등을 정리해야 합니다.
 
-따라서 본인의 상황에서
-어떤 자료와 절차가 필요한지
-확인하는 것이 중요합니다.`,
+통장 거래내역이나 금융 관련 자료 등
+사건에 따라 필요한 서류가 달라질 수 있으므로
+미리 확인해 두는 것이 좋습니다.`,
 
-`개인회생을 준비할 때는
-전체 채무뿐 아니라
-소득과 재산,
-채무가 발생하게 된 과정 등도
-함께 확인해야 합니다.
+`개인회생 신청서류는
+현재 경제 상황을 법원에 설명하기 위한
+여러 자료로 구성될 수 있습니다.
 
-사건의 내용에 따라
-추가적인 소명이나 자료 제출이
-필요한 경우도 있습니다.`,
+내용이 누락되거나 사실관계가 불명확한 경우
+추가적인 보정이 필요할 수 있으므로
+준비 단계부터 꼼꼼하게 살펴볼 필요가 있습니다.`,
 
-`다른 사람과 비슷한 규모의 채무가 있더라도
-개인회생 진행 내용까지
-완전히 같다고 볼 수는 없습니다.
+`개인회생 변제금은
+단순하게 임의로 결정하는 것이 아닙니다.
 
-소득과 재산,
-부양가족과 채무 발생 경위 등을
-함께 살펴보는 과정이 필요합니다.`,
+소득과 생계비, 재산과 채무 등
+여러 요소를 함께 고려하게 되므로
+다른 사람의 사례만으로
+본인의 변제금을 단정하기는 어렵습니다.`,
 
-`개인회생 신청 전에는
-현재 가지고 있는 채무와 재산,
-월평균 소득 등을 정리해
-확인하는 것이 좋습니다.
+`과거 개인회생을 진행했던 이력이 있거나
+재신청을 검토하는 상황이라면
+추가적으로 확인해야 할 사항이 생길 수 있습니다.
 
-구체적인 상황에 따라
-추가적인 자료가 요구될 수 있습니다.`,
-
-`채무가 발생하게 된 과정과
-현재의 경제 상황은
-사람마다 차이가 있습니다.
-
-따라서 신청 전에
-본인에게 필요한 준비사항을
-확인해 보는 것이 중요합니다.`
+현재 상황과 과거 진행 내용을 함께 정리한 뒤
+필요한 절차를 살펴보는 것이 좋습니다.`
 
 ];
 
-
-/* =========================
-   마무리
-========================= */
 
 const endings = [
 
-`채무가 많다고 해서
-모든 사람에게 같은 방법이
-적용되는 것은 아닙니다.
+`채무 문제는 시간이 지난다고 해서
+자연스럽게 해결되기 어려운 경우가 있습니다.
 
-현재 가지고 있는 채무와 소득,
-재산을 먼저 정리하고
-본인에게 적합한 방법을
-확인해 보는 것이 중요합니다.`,
+현재 상환이 부담스러운 상황이라면
+개인회생 신청자격과 예상되는 절차,
+준비해야 할 내용을 먼저 확인해 보시기 바랍니다.`,
 
-`개인회생 신청 가능 여부는
-채무금액 하나만으로
-판단하기 어렵습니다.
+`개인회생은 사람마다 채무와 재산,
+소득 상황이 다르기 때문에
+실제 진행 내용에도 차이가 발생할 수 있습니다.
 
-현재의 소득과 재산,
-전체 채무 상황을 함께 살펴보고
-어떤 절차를 검토할 수 있는지
-확인해 보는 것이 좋습니다.`,
+현재 조건에서 어떤 절차를 검토할 수 있는지
+구체적으로 확인해 보는 것이 중요합니다.`,
 
-`채무 문제를 계속 미루기보다는
-현재의 경제 상황부터
-구체적으로 확인하는 것이 중요합니다.
+`신청을 빠르게 진행하는 것만큼
+현재 상황을 정확하게 파악하는 것도 중요합니다.
 
-개인회생을 알아보고 있다면
-신청 가능 여부와 필요한 준비사항을
-상담을 통해 확인해 볼 수 있습니다.`,
-
-`채무 상황은 사람마다 다르기 때문에
-다른 사람의 사례만으로
-신청 여부를 판단하기는 어렵습니다.
-
-현재 본인의 조건에서
-어떤 방법을 검토할 수 있는지
-확인해 보는 것이 좋습니다.`,
-
-`채무 부담이 계속되고 있다면
-현재 소득과 재산,
-전체 채무부터 정리해 보는 것이 좋습니다.
-
-개인회생 신청이 가능한 상황인지
+채무와 소득 및 재산 내용을 정리한 뒤
 필요한 절차와 준비사항을
-확인해 보시기 바랍니다.`
+차근차근 확인해 보시기 바랍니다.`,
+
+`채무조정이 필요한 상황에서는
+혼자 판단하기 어려운 부분이 생길 수 있습니다.
+
+개인회생 신청 가능 여부와
+진행 과정에서 확인해야 할 내용을
+상담을 통해 살펴보는 방법도 있습니다.`
 
 ];
 
 
-/* =========================
-   제목 기록
-========================= */
+function randomItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
 
-const HISTORY_KEY =
-  "seoyul_used_titles_v6";
+
+function shuffle(arr) {
+
+    const a = [...arr];
+
+    for (let i = a.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+
+    return a;
+}
+
+
+function cleanKeywords(list) {
+
+    return [...new Set(
+
+        list
+        .map(v => v.trim())
+        .filter(Boolean)
+
+        .filter(v => v !== "개인회생변호사")
+
+        .filter(v => !v.includes("무료"))
+
+        .filter(v =>
+            !/(직장인|자영업자|프리랜서|일용직|아르바이트|공무원|사업자|주부)/.test(v)
+        )
+
+    )];
+}
 
 
 function loadHistory() {
 
-  try {
+    try {
 
-    return JSON.parse(
-      localStorage.getItem(HISTORY_KEY) || "[]"
-    );
+        return JSON.parse(
+            localStorage.getItem(HISTORY_KEY) || "[]"
+        );
 
-  } catch(e) {
+    } catch(e) {
 
-    return [];
-  }
+        return [];
+    }
 }
 
 
 function saveHistory(history) {
 
-  localStorage.setItem(
-    HISTORY_KEY,
-    JSON.stringify(history)
-  );
+    localStorage.setItem(
+        HISTORY_KEY,
+        JSON.stringify(history)
+    );
 
-  updateHistoryCount();
+    updateHistoryCount();
 }
 
 
 function updateHistoryCount() {
 
-  const history =
-    loadHistory();
-
-  document
-    .getElementById("historyCount")
-    .textContent =
-    history.length;
+    document.getElementById("historyCount").textContent =
+        loadHistory().length;
 }
 
 
 function resetHistory() {
 
-  const ok = confirm(
-    "지금까지 저장된 제목 기록을 모두 삭제할까요?\n삭제하면 이전 제목이 다시 생성될 수 있습니다."
-  );
+    if (!confirm("Delete all saved title history?")) {
+        return;
+    }
 
-  if(!ok) return;
+    localStorage.removeItem(HISTORY_KEY);
 
-  localStorage.removeItem(HISTORY_KEY);
+    updateHistoryCount();
 
-  updateHistoryCount();
-
-  alert("제목 기록이 초기화되었습니다.");
+    alert("Title history has been reset.");
 }
 
 
 function downloadHistory() {
 
-  const history =
-    loadHistory();
-
-  const text =
-    history.join("\n");
-
-  const blob =
-    new Blob(
-      [text],
-      {
-        type:
-        "text/plain;charset=utf-8"
-      }
+    const blob = new Blob(
+        [loadHistory().join("\n")],
+        {
+            type: "text/plain;charset=utf-8"
+        }
     );
 
-  const url =
-    URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
 
-  const a =
-    document.createElement("a");
+    const a = document.createElement("a");
 
-  a.href = url;
+    a.href = url;
 
-  a.download =
-    "used-title-history.txt";
+    a.download = "used-title-history.txt";
 
-  a.click();
+    a.click();
 
-  URL.revokeObjectURL(url);
+    URL.revokeObjectURL(url);
 }
 
 
-/* =========================
-   랜덤
-========================= */
+function createUniqueTitle(region, keywords, usedSet) {
 
-function randomItem(array) {
+    for (let attempt = 0; attempt < 5000; attempt++) {
 
-  return array[
-    Math.floor(
-      Math.random() * array.length
-    )
-  ];
-}
+        const selected =
+            shuffle(keywords).slice(0, 2);
 
+        const title =
+            `${region} 개인회생변호사 ${selected.join(" ")}`;
 
-function randomTwo(array) {
-
-  const copy =
-    [...array];
-
-  for(
-    let i = copy.length - 1;
-    i > 0;
-    i--
-  ) {
-
-    const j =
-      Math.floor(
-        Math.random() * (i + 1)
-      );
-
-    [copy[i], copy[j]] =
-      [copy[j], copy[i]];
-  }
-
-  return copy.slice(0,2);
-}
-
-
-/* =========================
-   키워드 정리
-========================= */
-
-function cleanKeywords(keywords) {
-
-  return [
-    ...new Set(
-      keywords
-        .map(v => v.trim())
-        .filter(Boolean)
-        .filter(
-          v =>
-          v !== "개인회생변호사"
-        )
-        .filter(
-          v =>
-          !v.includes("무료")
-        )
-    )
-  ];
-}
-
-
-/* =========================
-   제목 생성
-========================= */
-
-function createUniqueTitle(
-  region,
-  keywords,
-  usedSet
-) {
-
-  const safeKeywords =
-    cleanKeywords(keywords);
-
-
-  if(safeKeywords.length < 2) {
+        if (!usedSet.has(title)) {
+            return title;
+        }
+    }
 
     throw new Error(
-      "사용 가능한 제목 키워드를 최소 2개 이상 입력해 주세요."
+        `${region}: No unused keyword combinations available.`
     );
-  }
-
-
-  for(
-    let attempt = 0;
-    attempt < 3000;
-    attempt++
-  ) {
-
-    const selected =
-      randomTwo(safeKeywords);
-
-    const ending =
-      randomItem(titleEndings);
-
-
-    const title =
-      region +
-      " 개인회생변호사 " +
-      selected.join(" ") +
-      " " +
-      ending;
-
-
-    if(!usedSet.has(title)) {
-
-      return title;
-    }
-  }
-
-
-  throw new Error(
-    region +
-    " 지역의 새로운 제목 조합이 부족합니다."
-  );
 }
 
-
-/* =========================
-   파일명
-========================= */
 
 function batchCode() {
 
-  const d =
-    new Date();
+    const d = new Date();
 
-  const pad =
-    n =>
-    String(n).padStart(2,"0");
+    const pad = n =>
+        String(n).padStart(2, "0");
 
-
-  return (
-    d.getFullYear() +
-    pad(d.getMonth()+1) +
-    pad(d.getDate()) +
-    "-" +
-    pad(d.getHours()) +
-    pad(d.getMinutes()) +
-    pad(d.getSeconds())
-  );
+    return (
+        d.getFullYear() +
+        pad(d.getMonth() + 1) +
+        pad(d.getDate()) +
+        "-" +
+        pad(d.getHours()) +
+        pad(d.getMinutes()) +
+        pad(d.getSeconds())
+    );
 }
 
 
-function makeFileName(
-  batch,
-  index
-) {
+function makeFileName(batch, index) {
 
-  return (
-    "pr-" +
-    batch +
-    "-" +
-    String(index + 1)
-      .padStart(2,"0") +
-    ".html"
-  );
+    return (
+        `pr-${batch}-${String(index + 1).padStart(3, "0")}.html`
+    );
+}
+
+
+function finalUrlFromFilename(filename) {
+
+    return (
+        SITE_URL +
+        "/" +
+        filename.replace(/\.html$/i, "")
+    );
+}
+
+
+function normalizeSitemapUrl(url) {
+
+    return url
+        .trim()
+        .replace(/\.html(?=($|[?#]))/i, "");
+}
+
+
+function xmlEscape(s) {
+
+    return s
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
+}
+
+
+function htmlEscape(s) {
+
+    return s
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
 }
 
 
 function paragraphs(text) {
 
-  return text
-    .split("\n\n")
-    .map(function(block) {
-
-      return (
-        "<p>" +
-        block.replace(
-          /\n/g,
-          "<br>"
-        ) +
-        "</p>"
-      );
-
-    })
-    .join("\n");
+    return text
+        .split("\n\n")
+        .map(block =>
+            "<p>" +
+            block.replace(/\n/g, "<br>") +
+            "</p>"
+        )
+        .join("\n");
 }
 
-
-/* =========================
-   사이트맵 불러오기
-========================= */
 
 async function loadExistingSitemap() {
 
-  const response =
-    await fetch(
-      SITEMAP_URL +
-      "?t=" +
-      Date.now(),
-      {
-        cache:"no-store"
-      }
-    );
+    const response =
+        await fetch(
+            SITEMAP_URL + "?t=" + Date.now(),
+            {
+                cache: "no-store"
+            }
+        );
 
+    if (!response.ok) {
 
-  if(!response.ok) {
+        throw new Error(
+            "Could not load existing sitemap.xml."
+        );
+    }
 
-    throw new Error(
-      "기존 sitemap.xml을 불러오지 못했습니다."
-    );
-  }
+    const xmlText =
+        await response.text();
 
+    const xml =
+        new DOMParser().parseFromString(
+            xmlText,
+            "application/xml"
+        );
 
-  const xmlText =
-    await response.text();
+    if (xml.querySelector("parsererror")) {
 
+        throw new Error(
+            "Existing sitemap.xml is invalid."
+        );
+    }
 
-  const parser =
-    new DOMParser();
-
-
-  const xml =
-    parser.parseFromString(
-      xmlText,
-      "application/xml"
-    );
-
-
-  const error =
-    xml.querySelector(
-      "parsererror"
-    );
-
-
-  if(error) {
-
-    throw new Error(
-      "기존 sitemap.xml 형식을 읽을 수 없습니다."
-    );
-  }
-
-
-  const locs =
-    Array
-    .from(
-      xml.getElementsByTagName("loc")
-    )
-    .map(
-      node =>
-      node.textContent.trim()
-    )
-    .filter(Boolean);
-
-
-  return locs;
+    return Array
+        .from(xml.getElementsByTagName("loc"))
+        .map(node =>
+            normalizeSitemapUrl(
+                node.textContent
+            )
+        )
+        .filter(Boolean);
 }
 
-
-/* =========================
-   새 사이트맵 만들기
-========================= */
 
 function createSitemap(urls) {
 
-  const unique =
-    [...new Set(urls)];
+    const unique =
+        [...new Set(
+            urls.map(normalizeSitemapUrl)
+        )];
 
-
-  let xml =
+    return (
 `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-`;
+` +
 
-
-  unique.forEach(function(url) {
-
-    xml +=
+        unique
+        .map(url =>
 `  <url>
-    <loc>${url}</loc>
-  </url>
-`;
+    <loc>${xmlEscape(url)}</loc>
+  </url>`
+        )
+        .join("\n") +
 
-  });
-
-
-  xml +=
-`</urlset>`;
-
-
-  return xml;
+`
+</urlset>`
+    );
 }
 
 
-/* =========================
-   실제 글 HTML
-========================= */
-
 function createHTML(
-  region,
-  title,
-  consultLink
+    region,
+    title,
+    consultLink,
+    canonicalUrl
 ) {
 
-const intro =
-  randomItem(intros);
+    const intro =
+        randomItem(intros);
 
-const explanation =
-  randomItem(explanations);
+    const explanation =
+        randomItem(explanations);
 
-const jobs =
-  randomItem(jobTexts);
+    const requirements =
+        randomItem(requirementTexts);
 
-const preparation =
-  randomItem(prepareTexts);
+    const process =
+        randomItem(processTexts);
 
-const ending =
-  randomItem(endings);
+    const preparation =
+        randomItem(prepareTexts);
+
+    const ending =
+        randomItem(endings);
 
 
-const buttonText =
-  region +
-  " 개인회생변호사 상담 신청 [클릭]";
+    const description =
+        `${region} 개인회생 신청자격, 절차, 비용, 변제금과 준비사항 등 개인회생을 알아볼 때 확인할 내용을 안내합니다.`;
+
+
+    const buttonText =
+        `${region} 개인회생변호사 상담 신청 [클릭]`;
 
 
 return `<!DOCTYPE html>
+
 <html lang="ko">
 
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
-<title>${title}</title>
+<title>${htmlEscape(title)}</title>
 
-<meta name="description"
-content="${region} 개인회생 신청자격과 조건, 소득과 채무 기준 및 개인회생 진행 시 확인해야 할 내용을 안내합니다.">
+<meta
+name="description"
+content="${htmlEscape(description)}"
+>
 
-<meta name="robots"
-content="index, follow">
+<meta
+name="robots"
+content="index, follow"
+>
+
+<link
+rel="canonical"
+href="${canonicalUrl}"
+>
+
+<meta
+property="og:type"
+content="website"
+>
+
+<meta
+property="og:title"
+content="${htmlEscape(title)}"
+>
+
+<meta
+property="og:description"
+content="${htmlEscape(description)}"
+>
+
+<meta
+property="og:url"
+content="${canonicalUrl}"
+>
+
+<meta
+property="og:image"
+content="${SITE_URL}/thumbnail.png.png"
+>
 
 
 <style>
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  background: #f4f4f4;
-  color: #252525;
-  font-family: Arial, "Noto Sans KR", sans-serif;
-  word-break: keep-all;
+    margin: 0;
+    background: #f4f4f4;
+    color: #252525;
+    font-family: Arial, "Noto Sans KR", sans-serif;
+    word-break: keep-all;
 }
 
 .container {
-  width: 100%;
-  max-width: 760px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 30px 30px 55px;
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px 30px 55px;
 }
 
 .ad {
-  text-align: center;
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 24px;
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 24px;
 }
 
 .thumbnail,
 .content-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .thumbnail {
-  margin-bottom: 34px;
+    margin-bottom: 34px;
 }
 
 .content-image {
-  margin-top: 8px;
-  margin-bottom: 28px;
+    margin-top: 8px;
+    margin-bottom: 28px;
 }
 
 h1 {
-  margin: 0 0 38px;
-  font-size: 28px;
-  line-height: 1.55;
-  text-align: center;
-  color: #202020;
+    margin: 0 0 38px;
+    font-size: 28px;
+    line-height: 1.55;
+    text-align: center;
+    color: #202020;
 }
 
 h2 {
-  margin: 48px 0 20px;
-  padding-left: 12px;
-  border-left: 4px solid #735b3a;
-  font-size: 21px;
-  line-height: 1.55;
-  text-align: left;
+    margin: 48px 0 20px;
+    padding-left: 12px;
+    border-left: 4px solid #735b3a;
+    font-size: 21px;
+    line-height: 1.55;
+    text-align: left;
 }
 
 p {
-  margin: 0 0 24px;
-  font-size: 17px;
-  line-height: 1.9;
-  text-align: left;
+    margin: 0 0 24px;
+    font-size: 17px;
+    line-height: 1.9;
+    text-align: left;
 }
 
 .cta {
-  width: 100%;
-  margin: 36px 0 44px;
+    width: 100%;
+    margin: 36px 0 44px;
 }
 
 .cta a {
-  display: block;
-  width: 100%;
-  padding: 18px 14px;
-  background: #44362b;
-  color: #ffffff;
-  text-align: center;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.55;
-  border-radius: 8px;
-  box-shadow:
-  0 4px 12px
-  rgba(0,0,0,.12);
-}
-
-.point-box {
-  margin: 22px 0 30px;
-  padding: 22px 24px;
-  background: #faf8f5;
-  border: 1px solid #ebe5dc;
-  border-radius: 8px;
-}
-
-.point-item {
-  margin-bottom: 22px;
-}
-
-.point-item:last-child {
-  margin-bottom: 0;
-}
-
-.point-title {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 17px;
-  font-weight: 700;
-  color: #493b30;
-}
-
-.point-text {
-  font-size: 16px;
-  line-height: 1.8;
-  text-align: left;
+    display: block;
+    width: 100%;
+    padding: 18px 14px;
+    background: #44362b;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.55;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.12);
 }
 
 .check-box {
-  margin: 24px 0 34px;
-  padding: 23px 24px;
-  background: #f8f5f0;
-  border: 1px solid #e6ddd2;
-  border-radius: 9px;
+    margin: 24px 0 34px;
+    padding: 23px 24px;
+    background: #f8f5f0;
+    border: 1px solid #e6ddd2;
+    border-radius: 9px;
 }
 
 .check {
-  position: relative;
-  margin: 14px 0;
-  padding-left: 28px;
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.6;
-  text-align: left;
+    position: relative;
+    margin: 14px 0;
+    padding-left: 28px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.6;
+    text-align: left;
 }
 
 .check::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #735b3a;
-  font-weight: 700;
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #735b3a;
+    font-weight: 700;
 }
 
 .lawyer {
-  margin-top: 46px;
-  padding-top: 24px;
-  border-top:
-  1px solid #dddddd;
-  text-align: center;
-  font-size: 14px;
-  color: #666;
+    margin-top: 46px;
+    padding-top: 24px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
 }
-
 
 @media(max-width:600px) {
 
-  .container {
-    padding:
-    20px 17px 42px;
-  }
+    .container {
+        padding: 20px 17px 42px;
+    }
 
-  h1 {
-    font-size: 23px;
-    line-height: 1.55;
-    margin-bottom: 30px;
-  }
+    h1 {
+        font-size: 23px;
+        line-height: 1.55;
+        margin-bottom: 30px;
+    }
 
-  h2 {
-    margin-top: 42px;
-    margin-bottom: 18px;
-    font-size: 19px;
-  }
+    h2 {
+        margin-top: 42px;
+        margin-bottom: 18px;
+        font-size: 19px;
+    }
 
-  p {
-    font-size: 16px;
-    line-height: 1.85;
-    margin-bottom: 22px;
-  }
+    p {
+        font-size: 16px;
+        line-height: 1.85;
+        margin-bottom: 22px;
+    }
 
-  .cta a {
-    font-size: 16px;
-    padding:
-    17px 10px;
-  }
+    .cta a {
+        font-size: 16px;
+        padding: 17px 10px;
+    }
 
-  .point-box {
-    padding:
-    18px 17px;
-  }
+    .check-box {
+        padding: 19px 18px;
+    }
 
-  .point-title {
-    font-size: 16px;
-  }
-
-  .point-text {
-    font-size: 15px;
-  }
-
-  .check-box {
-    padding:
-    19px 18px;
-  }
-
-  .check {
-    font-size: 16px;
-  }
+    .check {
+        font-size: 16px;
+    }
 }
 
 </style>
@@ -1229,30 +1186,30 @@ p {
 
 <div class="container">
 
-
 <div class="ad">
 본 포스팅은 유료광고를 포함하고 있습니다.
 </div>
 
 
 <img
-src="https://info-guide.pages.dev/thumbnail.png.png"
-alt="${region} 개인회생 상담 안내"
-class="thumbnail">
+src="${SITE_URL}/thumbnail.png.png"
+alt="${htmlEscape(region)} 개인회생 상담 안내"
+class="thumbnail"
+>
 
 
-<h1>${title}</h1>
+<h1>
+${htmlEscape(title)}
+</h1>
 
 
 ${paragraphs(intro)}
 
 
 <p>
-${region}에서 개인회생을 알아보고 있다면<br>
-현재의 소득과 재산,<br>
-전체 채무 상황을 먼저 확인하고<br>
-신청요건에 해당하는지<br>
-살펴보는 것이 중요합니다.
+${htmlEscape(region)}에서 개인회생을 알아보고 있다면<br>
+현재 채무와 소득, 재산 상황을 먼저 정리하고<br>
+신청요건과 진행 가능성을 확인해 보는 것이 중요합니다.
 </p>
 
 
@@ -1261,254 +1218,134 @@ ${region}에서 개인회생을 알아보고 있다면<br>
 <a
 href="${consultLink}"
 target="_blank"
-rel="noopener noreferrer">
+rel="noopener noreferrer"
+>
 
-${buttonText}
+${htmlEscape(buttonText)}
 
 </a>
 
 </div>
 
 
-<h2>개인회생은 어떤 제도인가요?</h2>
-
+<h2>
+개인회생은 어떤 제도인가요?
+</h2>
 
 ${paragraphs(explanation)}
 
 
-<p>
-신청만으로 채무가 조정되는 것은 아니며<br>
-소득과 재산, 채무 규모 등을 확인하고<br>
-법원의 심사를 거쳐야 합니다.
-</p>
-
-
-<p>
-변제계획이 인가된 후<br>
-정해진 기간 동안 이를 이행하면<br>
-관련 요건과 절차에 따라<br>
-남은 채무에 대한 면책을<br>
-받을 수 있습니다.
-</p>
-
-
-<h2>개인회생 자격조건을 확인해 보세요</h2>
+<h2>
+신청자격과 조건을 확인해 보세요
+</h2>
 
 
 <img
-src="https://info-guide.pages.dev/qualification.png.png"
-alt="${region} 개인회생 신청자격 안내"
-class="content-image">
+src="${SITE_URL}/qualification.png.png"
+alt="${htmlEscape(region)} 개인회생 신청자격 안내"
+class="content-image"
+>
 
 
-<p>
-개인회생을 알아보고 있다면<br>
-먼저 기본적인 신청요건부터<br>
-확인해 보는 것이 좋습니다.
-</p>
+${paragraphs(requirements)}
 
 
-<div class="point-box">
+<div class="check-box">
 
+<div class="check">
+현재 소득과 전체 채무 확인
+</div>
 
-<div class="point-item">
+<div class="check">
+부동산·자동차·예금 등 보유 재산 확인
+</div>
 
-<span class="point-title">
-✓ 지속적인 소득
-</span>
+<div class="check">
+채권자별 채무와 연체 상황 정리
+</div>
 
-<div class="point-text">
-급여나 사업소득 등<br>
-계속적 또는 반복적으로<br>
-얻을 가능성이 있는 수입이 필요합니다.
+<div class="check">
+변제계획 이행 가능성 검토
 </div>
 
 </div>
 
 
-<div class="point-item">
+<h2>
+개인회생 절차에서 확인할 부분
+</h2>
 
-<span class="point-title">
-✓ 채무 상환이 어려운 상황
-</span>
-
-<div class="point-text">
-현재 소득과 재산 등을 고려했을 때<br>
-채무를 정상적으로 갚기 어려운 상황인지<br>
-확인하게 됩니다.
-</div>
-
-</div>
+${paragraphs(process)}
 
 
-<div class="point-item">
-
-<span class="point-title">
-✓ 채무 한도
-</span>
-
-<div class="point-text">
-무담보채무는 10억 원 이하,<br>
-담보부채무는 15억 원 이하인 경우<br>
-개인회생 신청을 검토할 수 있습니다.
-</div>
-
-</div>
-
-
-<div class="point-item">
-
-<span class="point-title">
-✓ 보유 재산
-</span>
-
-<div class="point-text">
-부동산과 자동차, 예금, 보험 등<br>
-현재 가지고 있는 재산도<br>
-함께 확인해야 합니다.
-</div>
-
-</div>
-
-
-<div class="point-item">
-
-<span class="point-title">
-✓ 과거 면책 여부
-</span>
-
-<div class="point-text">
-이전에 개인회생이나 파산 등을 통해<br>
-면책을 받은 경험이 있다면<br>
-관련 시점을 확인할 필요가 있습니다.
-</div>
-
-</div>
-
-
-</div>
-
-
-<h2>직업이 달라도 신청을 검토할 수 있습니다</h2>
+<h2>
+서류와 변제금은 상황에 따라 달라집니다
+</h2>
 
 
 <img
-src="https://info-guide.pages.dev/job-types.png.png"
-alt="${region} 직업별 개인회생 신청 안내"
-class="content-image">
-
-
-${paragraphs(jobs)}
-
-
-<h2>개인마다 준비해야 하는 내용이 다릅니다</h2>
-
-
-<img
-src="https://info-guide.pages.dev/legal-info.png.png"
-alt="${region} 개인회생 준비사항 안내"
-class="content-image">
+src="${SITE_URL}/legal-info.png.png"
+alt="${htmlEscape(region)} 개인회생 준비사항 안내"
+class="content-image"
+>
 
 
 ${paragraphs(preparation)}
 
 
-<p>
-주식이나 가상자산 투자,<br>
-도박 등으로 채무가 증가한 경우에는<br>
-구체적인 상황에 따라<br>
-추가적인 소명이나 자료가<br>
-요구될 수도 있습니다.
-</p>
-
-
-<h2>법무법인 서앤율의 강점</h2>
+<h2>
+개인회생 상담 시 확인할 내용
+</h2>
 
 
 <img
-src="https://info-guide.pages.dev/seoyul-lawyer.png.png"
-alt="법무법인 서앤율 개인회생 파산 안내"
-class="content-image">
+src="${SITE_URL}/seoyul-lawyer.png.png"
+alt="개인회생 법률상담 안내"
+class="content-image"
+>
 
 
 <p>
-개인회생은 단순히 신청서를 작성하고<br>
-접수하는 것에서 끝나는 절차가 아닙니다.
-</p>
-
-
-<p>
-채무와 재산, 소득에 관한 자료를 준비하고<br>
-현재 상황에 맞는 변제계획을 검토해야 하며<br>
-법원의 심사와 보정 과정에서<br>
-추가적인 확인이 필요한 경우도 있습니다.
-</p>
-
-
-<p>
-법무법인 서앤율에서는<br>
-개인회생·파산 관련 상담을 통해<br>
-현재의 채무와 소득 상황을 확인하고<br>
-진행 과정에서 필요한 내용을 안내합니다.
+개인회생은 신청서 작성뿐 아니라<br>
+채무와 재산, 소득 자료를 정리하고<br>
+법원의 심사와 보정 과정에 대응해야 하는 절차입니다.
 </p>
 
 
 <div class="check-box">
 
 <div class="check">
-변호사가 직접 사건 관리
+신청자격과 진행 가능성 확인
 </div>
 
 <div class="check">
-신청서 접수 및 보정 과정 확인
+필요 서류와 제출 자료 확인
 </div>
 
 <div class="check">
-채권자집회 등 진행 과정 확인
+보정명령·보정권고 대응 내용 확인
 </div>
 
 <div class="check">
-변제계획 인가 및 면책 과정 확인
-</div>
-
-<div class="check">
-전국 상담 및 진행 가능
-</div>
-
-<div class="check">
-수임료 분납 가능
-</div>
-
-<div class="check">
-사건 진행상황 확인
-</div>
-
-<div class="check">
-1:1 비밀상담
+변제계획과 면책 과정 확인
 </div>
 
 </div>
 
 
-<h2>현재 상황부터 확인해 보세요</h2>
+<h2>
+현재 상황부터 정리해 보세요
+</h2>
 
 
 <img
-src="https://info-guide.pages.dev/seoyul-benefits.png.png"
-alt="법무법인 서앤율 상담 안내"
-class="content-image">
+src="${SITE_URL}/seoyul-benefits.png.png"
+alt="개인회생 상담 안내"
+class="content-image"
+>
 
 
 ${paragraphs(ending)}
-
-
-<p>
-채무 부담으로 고민하고 있다면<br>
-법무법인 서앤율과 상담을 통해<br>
-개인회생 신청 가능 여부와<br>
-필요한 준비사항을<br>
-확인해 보시기 바랍니다.
-</p>
 
 
 <div class="cta">
@@ -1516,9 +1353,10 @@ ${paragraphs(ending)}
 <a
 href="${consultLink}"
 target="_blank"
-rel="noopener noreferrer">
+rel="noopener noreferrer"
+>
 
-${buttonText}
+${htmlEscape(buttonText)}
 
 </a>
 
@@ -1533,320 +1371,279 @@ ${buttonText}
 </div>
 
 </body>
+
 </html>`;
+
 }
 
 
-/* =========================
-   글 + 사이트맵 생성
-========================= */
-
 async function generatePages() {
 
-  const regions =
-    document
-    .getElementById("regions")
-    .value
-    .split("\n")
-    .map(v => v.trim())
-    .filter(Boolean)
-    .slice(0,50);
+    const regions =
+        document
+        .getElementById("regions")
+        .value
+        .split("\n")
+        .map(v => v.trim())
+        .filter(Boolean);
 
 
-  const rawKeywords =
-    document
-    .getElementById("keywords")
-    .value
-    .split("\n")
-    .map(v => v.trim())
-    .filter(Boolean);
-
-
-  const keywords =
-    cleanKeywords(
-      rawKeywords
-    );
-
-
-  const consultLink =
-    document
-    .getElementById(
-      "consultLink"
-    )
-    .value
-    .trim();
-
-
-  if(regions.length === 0) {
-
-    alert(
-      "지역을 입력해 주세요."
-    );
-
-    return;
-  }
-
-
-  if(keywords.length < 2) {
-
-    alert(
-      "사용 가능한 제목 키워드를 최소 2개 이상 입력해 주세요."
-    );
-
-    return;
-  }
-
-
-  /* 기존 사이트맵 불러오기 */
-
-  let existingUrls;
-
-
-  try {
-
-    existingUrls =
-      await loadExistingSitemap();
-
-  } catch(error) {
-
-    alert(
-      "사이트맵을 불러오지 못해 생성을 중단합니다.\n\n" +
-      error.message +
-      "\n\n기존 sitemap.xml이 정상적으로 열리는지 먼저 확인해 주세요."
-    );
-
-    return;
-  }
-
-
-  const oldHistory =
-    loadHistory();
-
-
-  const usedSet =
-    new Set(oldHistory);
-
-
-  const newTitles =
-    [];
-
-
-  const zip =
-    new JSZip();
-
-
-  const batch =
-    batchCode();
-
-
-  const preview =
-    [];
-
-
-  const newPageUrls =
-    [];
-
-
-  try {
-
-    regions.forEach(
-      function(
-        region,
-        index
-      ) {
-
-      const title =
-        createUniqueTitle(
-          region,
-          keywords,
-          usedSet
+    const keywords =
+        cleanKeywords(
+            document
+            .getElementById("keywords")
+            .value
+            .split("\n")
         );
 
 
-      usedSet.add(
-        title
-      );
+    const consultLink =
+        document
+        .getElementById("consultLink")
+        .value
+        .trim();
 
 
-      newTitles.push(
-        title
-      );
-
-
-      const filename =
-        makeFileName(
-          batch,
-          index
+    const pageCount =
+        Math.max(
+            1,
+            Math.min(
+                500,
+                parseInt(
+                    document
+                    .getElementById("pageCount")
+                    .value || "250",
+                    10
+                )
+            )
         );
 
 
-      const html =
-        createHTML(
-          region,
-          title,
-          consultLink
+    if (!regions.length) {
+
+        alert("Please enter regions.");
+
+        return;
+    }
+
+
+    if (keywords.length < 2) {
+
+        alert(
+            "Please enter at least two usable keywords."
+        );
+
+        return;
+    }
+
+
+    if (!consultLink) {
+
+        alert(
+            "Please enter the consultation link."
+        );
+
+        return;
+    }
+
+
+    let existingUrls;
+
+
+    try {
+
+        existingUrls =
+            await loadExistingSitemap();
+
+    }
+
+    catch(error) {
+
+        alert(
+            "Generation stopped because sitemap.xml could not be loaded.\n\n" +
+            error.message
+        );
+
+        return;
+    }
+
+
+    const oldHistory =
+        loadHistory();
+
+
+    const usedSet =
+        new Set(oldHistory);
+
+
+    const newTitles = [];
+
+    const newUrls = [];
+
+    const zip =
+        new JSZip();
+
+
+    const batch =
+        batchCode();
+
+
+    const preview = [];
+
+
+    try {
+
+        for (
+            let i = 0;
+            i < pageCount;
+            i++
+        ) {
+
+            const region =
+                regions[i % regions.length];
+
+
+            const title =
+                createUniqueTitle(
+                    region,
+                    keywords,
+                    usedSet
+                );
+
+
+            usedSet.add(title);
+
+            newTitles.push(title);
+
+
+            const filename =
+                makeFileName(
+                    batch,
+                    i
+                );
+
+
+            const canonicalUrl =
+                finalUrlFromFilename(
+                    filename
+                );
+
+
+            const page =
+                createHTML(
+                    region,
+                    title,
+                    consultLink,
+                    canonicalUrl
+                );
+
+
+            zip.file(
+                filename,
+                page
+            );
+
+
+            newUrls.push(
+                canonicalUrl
+            );
+
+
+            if (i < 8) {
+
+                preview.push(
+                    title
+                );
+            }
+        }
+
+    }
+
+    catch(error) {
+
+        alert(
+            "Generation error:\n\n" +
+            error.message
+        );
+
+        return;
+    }
+
+
+    const sitemap =
+        createSitemap(
+            [
+                ...existingUrls,
+                ...newUrls
+            ]
         );
 
 
-      zip.file(
-        filename,
-        html
-      );
-
-
-      const pageUrl =
-        SITE_URL +
-        "/" +
-        filename;
-
-
-      newPageUrls.push(
-        pageUrl
-      );
-
-
-      preview.push(
-        "<strong>" +
-        (index + 1) +
-        ". " +
-        title +
-        "</strong><br>" +
-        filename
-      );
-
-    });
-
-  } catch(error) {
-
-    alert(
-      error.message
-    );
-
-    return;
-  }
-
-
-  /* 제목 기록 저장 */
-
-  const allHistory =
-    oldHistory.concat(
-      newTitles
+    zip.file(
+        "sitemap.xml",
+        sitemap
     );
 
 
-  saveHistory(
-    allHistory
-  );
+    const content =
+        await zip.generateAsync({
+            type: "blob"
+        });
 
 
-  /* 기존 + 신규 주소 누적 */
-
-  const allUrls =
-    [
-      ...existingUrls,
-      ...newPageUrls
-    ];
+    const url =
+        URL.createObjectURL(
+            content
+        );
 
 
-  /* 새 사이트맵 */
+    const a =
+        document.createElement("a");
 
-  const sitemap =
-    createSitemap(
-      allUrls
+
+    a.href =
+        url;
+
+
+    a.download =
+        `personal-rehabilitation-${batch}-${pageCount}.zip`;
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(
+        url
     );
 
 
-  /* ZIP 안에 sitemap.xml 추가 */
-
-  zip.file(
-    "sitemap.xml",
-    sitemap
-  );
-
-
-  /* ZIP 다운로드 */
-
-  const blob =
-    await zip.generateAsync({
-      type:"blob"
-    });
-
-
-  const url =
-    URL.createObjectURL(
-      blob
+    saveHistory(
+        [
+            ...oldHistory,
+            ...newTitles
+        ]
     );
 
 
-  const download =
-    document.createElement(
-      "a"
-    );
+    const result =
+        document.getElementById(
+            "result"
+        );
 
 
-  download.href =
-    url;
+    result.style.display =
+        "block";
 
 
-  download.download =
-    "seoyul-" +
-    batch +
-    "-" +
-    regions.length +
-    "pages-with-sitemap.zip";
-
-
-  document.body.appendChild(
-    download
-  );
-
-
-  download.click();
-
-
-  download.remove();
-
-
-  URL.revokeObjectURL(
-    url
-  );
-
-
-  /* 결과 표시 */
-
-  const result =
-    document.getElementById(
-      "result"
-    );
-
-
-  result.style.display =
-    "block";
-
-
-  result.innerHTML =
-
-    "<strong>" +
-    regions.length +
-    "개 페이지 생성 완료</strong><br><br>" +
-
-    "기존 사이트맵 주소 : " +
-    existingUrls.length +
-    "개<br>" +
-
-    "이번 신규 주소 : " +
-    newPageUrls.length +
-    "개<br>" +
-
-    "새 사이트맵 총 주소 : " +
-    [...new Set(allUrls)].length +
-    "개<br><br>" +
-
-    "<strong>ZIP 안에 sitemap.xml도 포함되었습니다.</strong><br><br>" +
-
-    preview.join(
-      "<br><br>"
-    );
+    result.innerHTML =
+        `<strong>${pageCount} pages generated.</strong><br>` +
+        `Regions: ${regions.length}<br>` +
+        `Keywords: ${keywords.length}<br>` +
+        `New sitemap URLs: ${newUrls.length}<br><br>` +
+        `<strong>Title examples</strong><br>` +
+        preview
+        .map(v => htmlEscape(v))
+        .join("<br>");
 
 }
 
@@ -1856,4 +1653,5 @@ updateHistoryCount();
 </script>
 
 </body>
+
 </html>
